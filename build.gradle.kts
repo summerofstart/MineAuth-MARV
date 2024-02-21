@@ -9,7 +9,7 @@ plugins {
     kotlin("plugin.serialization") version "1.9.22"
 }
 
-group = "dev.nikomaru" //TODO need to change
+group = "party.morino" //TODO need to change
 version = "1.0-SNAPSHOT"
 
 fun captureVersion(dependency: Dependency): String {
@@ -39,7 +39,6 @@ dependencies {
     val junitVersion = "5.10.2"
     val mockkVersion = "1.13.9"
     val mockBukkitVersion = "3.70.0"
-
 
     compileOnly("io.papermc.paper:paper-api:$paperVersion")
 
@@ -98,11 +97,11 @@ tasks {
 
 
 bukkit {
-    name = "Template" //TODO need to change
+    name = "Moripa-API" //TODO need to change
     version = "miencraft_plugin_version"
-    website = "https://github.com/Nlkomaru/NoticeTemplate"  //TODO need to change
+    website = "https://github.com/morinoparty/Moripa-API"  //TODO need to change
 
-    main = "$group.template.Template"  //TODO need to change
+    main = "$group.moripaapi.MoripaAPI"  //TODO need to change
 
     apiVersion = "1.20"
 }

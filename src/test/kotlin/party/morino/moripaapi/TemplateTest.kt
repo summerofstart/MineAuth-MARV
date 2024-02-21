@@ -1,4 +1,4 @@
-package dev.nikomaru.template
+package party.morino.moripaapi
 
 import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
@@ -13,7 +13,7 @@ import org.koin.dsl.module
 open class TemplateTest : BeforeEachCallback, AfterEachCallback {
 
     lateinit var server: ServerMock
-    lateinit var plugin: Template
+    lateinit var plugin: MoripaAPI
 
     override fun beforeEach(context: ExtensionContext) {
         println("beforeEach() executed before " + context.displayName + ".");
@@ -28,9 +28,9 @@ open class TemplateTest : BeforeEachCallback, AfterEachCallback {
 
 
     private fun setupKoin() {
-        plugin = MockBukkit.load(Template::class.java)
+        plugin = MockBukkit.load(MoripaAPI::class.java)
         val appModule = module {
-            single<Template> { plugin }
+            single<MoripaAPI> { plugin }
             single<ServerMock> { server }
         }
         loadKoinModules(appModule)

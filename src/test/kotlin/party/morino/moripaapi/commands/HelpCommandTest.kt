@@ -1,7 +1,7 @@
-package dev.nikomaru.template.commands
+package party.morino.moripaapi.commands
 
 import be.seeseemelk.mockbukkit.ServerMock
-import dev.nikomaru.template.TemplateTest
+import party.morino.moripaapi.TemplateTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

@@ -1,15 +1,7 @@
-# NoticeTemplate
+# Moripa-API
 
-Please delete this README after copying
+This is a plugin for accessing all moripa from the web. 
 
-## License 
-Written in 2022 by Nikomaru &emsp; No Rights Reserved. <br>
-
-To the extent possible under law, Nikomaru has waived all copyright and related or neighboring rights to NoticeTemplate. This work is published from: Japan.<br>
-
-You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
-
-## Usage
-### github
-1. Use this template
-2. To go `Settings` > `Actions` > `General` > `Workflow permissions` > `Check Read and write permission`
+## Attention for developers
+It is hard to create an API and register it for each plugin, so use softdepend and implement it in hardcourt.
+Also, when converting from normal class to json, if you make your own encoder, it will be buggy when outputting in openAPI format, so use the data class.

@@ -1,16 +1,16 @@
-package dev.nikomaru.template
+package party.morino.moripaapi
 
-import dev.nikomaru.template.commands.HelpCommand
+import party.morino.moripaapi.commands.HelpCommand
 import org.bukkit.plugin.java.JavaPlugin
 import org.koin.core.context.GlobalContext
 import org.koin.dsl.module
 import revxrsal.commands.bukkit.BukkitCommandHandler
 import revxrsal.commands.ktx.supportSuspendFunctions
 
-open class Template : JavaPlugin() {
+open class MoripaAPI : JavaPlugin() {
 
     companion object {
-        lateinit var plugin: Template
+        lateinit var plugin: MoripaAPI
             private set
     }
     override fun onEnable() {
@@ -22,7 +22,7 @@ open class Template : JavaPlugin() {
 
     private fun setupKoin() {
         val appModule = module {
-            single<Template> { this@Template }
+            single<MoripaAPI> { this@MoripaAPI }
         }
 
         GlobalContext.getOrNull() ?: GlobalContext.startKoin {

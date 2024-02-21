@@ -1,4 +1,4 @@
-package dev.nikomaru.template.commands
+package party.morino.moripaapi.commands
 
 import org.bukkit.command.CommandSender
 import revxrsal.commands.annotation.Command
