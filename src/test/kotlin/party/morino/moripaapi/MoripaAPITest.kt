@@ -10,14 +10,15 @@ import org.koin.core.context.loadKoinModules
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 
-open class TemplateTest : BeforeEachCallback, AfterEachCallback {
+open class MoripaAPITest : BeforeEachCallback, AfterEachCallback {
 
-    lateinit var server: ServerMock
-    lateinit var plugin: MoripaAPI
+    private lateinit var server: ServerMock
+    private lateinit var plugin: MoripaAPI
 
     override fun beforeEach(context: ExtensionContext) {
         println("beforeEach() executed before " + context.displayName + ".");
         server = MockBukkit.mock()
+        plugin = MockBukkit.load(MoripaAPI::class.java)
         setupKoin()
     }
 
@@ -28,7 +29,7 @@ open class TemplateTest : BeforeEachCallback, AfterEachCallback {
 
 
     private fun setupKoin() {
-        plugin = MockBukkit.load(MoripaAPI::class.java)
+
         val appModule = module {
             single<MoripaAPI> { plugin }
             single<ServerMock> { server }

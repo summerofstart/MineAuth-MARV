@@ -8,11 +8,7 @@ import revxrsal.commands.bukkit.BukkitCommandHandler
 import revxrsal.commands.ktx.supportSuspendFunctions
 
 open class MoripaAPI : JavaPlugin() {
-
-    companion object {
-        lateinit var plugin: MoripaAPI
-            private set
-    }
+    private lateinit var plugin: MoripaAPI
     override fun onEnable() {
         // Plugin startup logic
         plugin = this
@@ -33,7 +29,7 @@ open class MoripaAPI : JavaPlugin() {
         // Plugin shutdown logic
     }
 
-    fun setCommand() {
+    private fun setCommand() {
         val handler = BukkitCommandHandler.create(this)
 
         handler.setSwitchPrefix("--")

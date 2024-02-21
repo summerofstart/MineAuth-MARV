@@ -7,8 +7,7 @@ import revxrsal.commands.annotation.Description
 import revxrsal.commands.annotation.Subcommand
 import revxrsal.commands.help.CommandHelp
 
-//TODO replaced with the name of the plugin
-@Command("plugin-template")
+@Command("moripaapi","ma")
 class HelpCommand {
     @Subcommand("help")
     @Description("Shows the help menu")

@@ -38,7 +38,7 @@ dependencies {
     val serializationVersion = "1.6.2"
     val junitVersion = "5.10.2"
     val mockkVersion = "1.13.9"
-    val mockBukkitVersion = "3.70.0"
+    val mockBukkitVersion = "3.74.0"
 
     compileOnly("io.papermc.paper:paper-api:$paperVersion")
 
@@ -79,7 +79,7 @@ tasks {
         dependsOn(shadowJar)
     }
     runServer {
-        minecraftVersion("1.20.2")
+        minecraftVersion("1.20.4")
     }
     withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
@@ -97,11 +97,11 @@ tasks {
 
 
 bukkit {
-    name = "Moripa-API" //TODO need to change
+    name = "Moripa-API"
     version = "miencraft_plugin_version"
-    website = "https://github.com/morinoparty/Moripa-API"  //TODO need to change
+    website = "https://github.com/morinoparty/Moripa-API"
 
-    main = "$group.moripaapi.MoripaAPI"  //TODO need to change
+    main = "$group.moripaapi.MoripaAPI"
 
     apiVersion = "1.20"
 }
