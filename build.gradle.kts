@@ -9,7 +9,7 @@ plugins {
     kotlin("plugin.serialization") version "1.9.22"
 }
 
-group = "party.morino" //TODO need to change
+group = "party.morino"
 version = "1.0-SNAPSHOT"
 
 fun captureVersion(dependency: Dependency): String {
@@ -39,6 +39,7 @@ dependencies {
     val junitVersion = "5.10.2"
     val mockkVersion = "1.13.9"
     val mockBukkitVersion = "3.74.0"
+    val ktorVersion = "2.3.8"
 
     compileOnly("io.papermc.paper:paper-api:$paperVersion")
 
@@ -53,6 +54,20 @@ dependencies {
 
     library("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:$mccoroutineVersion")
     library("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:$mccoroutineVersion")
+
+    implementation("io.ktor:ktor-server-core:$ktorVersion")
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+    implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth-jwt:$ktorVersion")
+    implementation("io.ktor:ktor-network-tls-certificates:$ktorVersion")
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-java:$ktorVersion")
+    implementation("io.ktor:ktor-client-logging:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+
+    implementation("ch.qos.logback:logback-classic:1.3.14")
 
     implementation("io.insert-koin:koin-core:$koinVersion")
 
