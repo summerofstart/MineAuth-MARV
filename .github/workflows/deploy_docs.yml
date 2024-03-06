@@ -19,5 +19,5 @@ jobs:
           python-version: 3.9
       - run: pip install mkdocs-material
       - run: |
-          cd morinoparty.github.io
+          cd ../morinoparty.github.io/
           mkdocs gh-deploy --force --config-file ../Moripa-API/docs/mkdocs.yml --remote-branch master
