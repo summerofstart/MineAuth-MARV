@@ -36,10 +36,7 @@ dependencies {
     val koinVersion = "3.5.3"
     val coroutineVersion = "1.7.3"
     val serializationVersion = "1.6.2"
-    val junitVersion = "5.10.2"
-    val mockkVersion = "1.13.9"
     val ktorVersion = "2.3.8"
-    val mockBukkitVersion = "3.76.1"
 
     compileOnly("io.papermc.paper:paper-api:$paperVersion")
 
@@ -75,12 +72,6 @@ dependencies {
     library("ch.qos.logback:logback-classic:1.3.14")
 
     implementation("io.insert-koin:koin-core:$koinVersion")
-
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.20:$mockBukkitVersion")
-    testImplementation("io.mockk:mockk:$mockkVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
-    testImplementation("io.insert-koin:koin-test:$koinVersion")
-    testImplementation("io.insert-koin:koin-test-junit5:$koinVersion")
 }
 
 java {
