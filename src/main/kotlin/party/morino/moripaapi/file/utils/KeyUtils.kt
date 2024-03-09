@@ -20,6 +20,7 @@ import org.koin.dsl.module
 import party.morino.moripaapi.MoripaAPI
 import party.morino.moripaapi.file.config.JWTConfigData
 import party.morino.moripaapi.utils.json
+import java.io.File
 import java.math.BigInteger
 import java.security.*
 import java.security.cert.CertificateFactory
@@ -33,7 +34,7 @@ object KeyUtils: KoinComponent {
     fun init() {
         generateKeyPair()
         generateCertificate(getKeys().first, getKeys().second)
-        generateJWKs()
+        loadJWKs()
     }
 
     private fun generateKeyPair() {
@@ -90,14 +91,43 @@ object KeyUtils: KoinComponent {
         }
     }
 
-    private fun generateJWKs() {
+    private fun loadJWKs() {
         val certificateFile = plugin.dataFolder.resolve("certificate.pem")
         if (!certificateFile.exists()) {
             plugin.logger.warning("cert file not found.")
             return
         }
-        val (privateKey, _) = getKeys()
+        val jwksFile = plugin.dataFolder.resolve("jwks.json")
         val randomKeyAlias = UUID.randomUUID()
+        if (!jwksFile.exists()) {
+            plugin.logger.warning("jwks file not found.")
+            generateJWKs(jwksFile, randomKeyAlias)
+        }
+        val jwtConfigFile = plugin.dataFolder.resolve("jwtConfig.json")
+        if (!jwtConfigFile.exists()) {
+            plugin.logger.warning("jwtConfig file not found.")
+            generateJWTConfig(jwtConfigFile, randomKeyAlias)
+        }
+        val jwtConfigData: JWTConfigData = json.decodeFromString(jwtConfigFile.readText())
+        loadKoinModules(module {
+            single { jwtConfigData }
+        })
+
+    }
+
+    private fun generateJWTConfig(jwtConfigFile: File, randomKeyAlias: UUID) {
+        jwtConfigFile.parentFile.mkdirs()
+        jwtConfigFile.createNewFile()
+        val jwtConfigData = JWTConfigData(
+            "https://api.morino.party", "https://dash.morino.party", "morino.party", "privateKey.pem", randomKeyAlias
+        )
+        jwtConfigFile.writeText(json.encodeToString(jwtConfigData))
+    }
+
+    private fun generateJWKs(jwksFile: File, randomKeyAlias: UUID) {
+        val certificateFile = plugin.dataFolder.resolve("certificate.pem")
+        val (privateKey, _) = getKeys()
+
         val randomPassword = RandomStringUtils.randomAlphabetic(16)
         val keyStore = KeyStore.getInstance("JKS")
         keyStore.load(null, null)
@@ -110,27 +140,8 @@ object KeyUtils: KoinComponent {
         val rsaKey =
             com.nimbusds.jose.jwk.RSAKey.load(keyStore, randomKeyAlias.toString(), randomPassword.toCharArray())
         val jwkSet = JWKSet(rsaKey)
-        val jwksFile = plugin.dataFolder.resolve("jwks.json")
+
         jwksFile.writeText( jwkSet.toString(true))
-
-        val jwtConfigFile = plugin.dataFolder.resolve("jwtConfig.json")
-        if (!jwtConfigFile.exists()) {
-            jwtConfigFile.parentFile.mkdirs()
-            jwtConfigFile.createNewFile()
-            val jwtConfigData = JWTConfigData(
-                "https://api.morino.party",
-                "https://dash.morino.party",
-                "morino.party",
-                "privateKey.pem",
-                randomKeyAlias
-            )
-            jwtConfigFile.writeText(json.encodeToString(jwtConfigData))
-        }
-        val jwtConfigData: JWTConfigData = json.decodeFromString(jwtConfigFile.readText())
-        loadKoinModules(module {
-            single { jwtConfigData }
-        })
-
     }
 
     private fun getKeys(): Pair<PrivateKey, PublicKey> {

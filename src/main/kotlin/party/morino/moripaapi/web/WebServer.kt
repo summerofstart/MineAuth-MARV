@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit
 
 object WebServer: KoinComponent {
     private val plugin: MoripaAPI by inject()
-    private lateinit var originalServer: ApplicationEngine
+    private var originalServer: ApplicationEngine? = null
     fun settingServer() {
         val webServerConfigData: WebServerConfigData = get()
         plugin.logger.info("Setting up web server")
@@ -54,11 +54,11 @@ object WebServer: KoinComponent {
     }
 
     fun startServer() {
-        originalServer.start(wait = false)
+        originalServer?.start(wait = false)
     }
 
     fun stopServer() {
-        originalServer.stop(0, 0, TimeUnit.SECONDS)
+        originalServer?.stop(0, 0, TimeUnit.SECONDS)
     }
 }
 
