@@ -39,7 +39,7 @@ dependencies {
     val junitVersion = "5.10.2"
     val mockkVersion = "1.13.9"
     val ktorVersion = "2.3.8"
-    val mockBukkitVersion = "3.76.1"
+    val mockBukkitVersion = "3.78.0"
 
     compileOnly("io.papermc.paper:paper-api:$paperVersion")
 
