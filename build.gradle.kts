@@ -36,10 +36,7 @@ dependencies {
     val koinVersion = "3.5.3"
     val coroutineVersion = "1.7.3"
     val serializationVersion = "1.6.3"
-    val junitVersion = "5.10.2"
-    val mockkVersion = "1.13.9"
     val ktorVersion = "2.3.8"
-    val mockBukkitVersion = "3.76.1"
 
     compileOnly("io.papermc.paper:paper-api:$paperVersion")
 
@@ -48,12 +45,12 @@ dependencies {
     implementation("com.github.Revxrsal.Lamp:common:$lampVersion")
     implementation("com.github.Revxrsal.Lamp:bukkit:$lampVersion")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
+    library("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
 
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:$mccoroutineVersion")
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:$mccoroutineVersion")
+    library("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:$mccoroutineVersion")
+    library("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:$mccoroutineVersion")
 
     implementation("io.ktor:ktor-server-core:$ktorVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
@@ -67,20 +64,14 @@ dependencies {
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
 
-    implementation("org.bouncycastle:bcpkix-jdk18on:1.77")
-    implementation("org.bouncycastle:bcprov-jdk18on:1.77")
+    library("org.bouncycastle:bcpkix-jdk18on:1.77")
+    library("org.bouncycastle:bcprov-jdk18on:1.77")
 
-    implementation("com.nimbusds:nimbus-jose-jwt:9.38-rc3")
+    library("com.nimbusds:nimbus-jose-jwt:9.38-rc3")
 
-    implementation("ch.qos.logback:logback-classic:1.3.14")
+    library("ch.qos.logback:logback-classic:1.3.14")
 
     implementation("io.insert-koin:koin-core:$koinVersion")
-
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.20:$mockBukkitVersion")
-    testImplementation("io.mockk:mockk:$mockkVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
-    testImplementation("io.insert-koin:koin-test:$koinVersion")
-    testImplementation("io.insert-koin:koin-test-junit5:$koinVersion")
 }
 
 java {
@@ -124,4 +115,44 @@ bukkit {
     main = "$group.moripaapi.MoripaAPI"
 
     apiVersion = "1.20"
+}
+
+configurations {
+    create("resolvable") {
+        extendsFrom(configurations["default"])
+        isCanBeResolved = true
+    }
+}
+
+tasks.register("depsize") {
+    description = "Prints dependencies for \"default\" configuration"
+    doLast {
+        listConfigurationDependencies(configurations["resolvable"])
+    }
+}
+
+tasks.register("depsize-all-configurations") {
+    description = "Prints dependencies for all available configurations"
+    doLast {
+        configurations.filter { it.isCanBeResolved }.forEach { listConfigurationDependencies(it) }
+    }
+}
+
+fun listConfigurationDependencies(configuration: Configuration) {
+    val formatStr = "%,10.2f"
+    val size = configuration.sumOf { it.length() / (1024.0 * 1024.0) }
+    val out = StringBuffer()
+    out.append("\nConfiguration name: \"${configuration.name}\"\n")
+    if (size > 0) {
+        out.append("Total dependencies size:".padEnd(65))
+        out.append("${String.format(formatStr, size)} Mb\n\n")
+
+        configuration.sortedBy { -it.length() }.forEach {
+            out.append(it.name.padEnd(65))
+            out.append("${String.format(formatStr, (it.length() / (1024.0 * 1024.0)))} mb\n")
+        }
+    } else {
+        out.append("No dependencies found")
+    }
+    println(out)
 }
