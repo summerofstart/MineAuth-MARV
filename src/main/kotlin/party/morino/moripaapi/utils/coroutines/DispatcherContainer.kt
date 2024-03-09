@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import kotlin.coroutines.CoroutineContext
 
 object DispatcherContainer {
+
     private var asyncCoroutine: CoroutineContext? = null
     private var syncCoroutine: CoroutineContext? = null
 
@@ -16,7 +17,6 @@ object DispatcherContainer {
             if (asyncCoroutine == null) {
                 asyncCoroutine = AsyncCoroutineDispatcher(JavaPlugin.getPlugin(MoripaAPI::class.java))
             }
-
             return asyncCoroutine!!
         }
 

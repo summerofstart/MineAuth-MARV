@@ -18,30 +18,35 @@ import org.koin.core.component.inject
 import org.koin.java.KoinJavaComponent.get
 import org.koin.java.KoinJavaComponent.inject
 import party.morino.moripaapi.MoripaAPI
+import party.morino.moripaapi.file.config.JWTConfigData
+import party.morino.moripaapi.file.config.WebServerConfigData
 import party.morino.moripaapi.utils.PlayerUtils.toOfflinePlayer
 import party.morino.moripaapi.utils.PlayerUtils.toUUID
-import party.morino.moripaapi.web.file.config.WebServerConfig
+import party.morino.moripaapi.web.router.oauth.OAuthRouter.oauthRouter
 import java.security.KeyStore
 import java.util.concurrent.TimeUnit
 
-class WebServer: KoinComponent {
+object WebServer: KoinComponent {
     private val plugin: MoripaAPI by inject()
     private lateinit var originalServer: ApplicationEngine
     fun settingServer() {
-        val webServerConfig: WebServerConfig = get()
+        val webServerConfigData: WebServerConfigData = get()
         plugin.logger.info("Setting up web server")
-        val keyStoreFile = plugin.dataFolder.resolve("keystore.jks")
-        val keystore = KeyStore.getInstance(keyStoreFile, webServerConfig.ssl.keyStorePassword.toCharArray())
         val environment = applicationEngineEnvironment {
             connector {
-                port = webServerConfig.port
+                port = webServerConfigData.port
             }
-            sslConnector(keyStore = keystore,
-                         keyAlias = webServerConfig.ssl.keyAlias,
-                         keyStorePassword = { webServerConfig.ssl.keyStorePassword.toCharArray() },
-                         privateKeyPassword = { webServerConfig.ssl.privateKeyPassword.toCharArray() }) {
-                port = webServerConfig.ssl.sslPort
-                keyStorePath = keyStoreFile
+            if (webServerConfigData.ssl != null) {
+                val keyStoreFile = plugin.dataFolder.resolve("keystore.jks")
+                val keystore =
+                    KeyStore.getInstance(keyStoreFile, webServerConfigData.ssl.keyStorePassword.toCharArray())
+                sslConnector(keyStore = keystore,
+                             keyAlias = webServerConfigData.ssl.keyAlias,
+                             keyStorePassword = { webServerConfigData.ssl.keyStorePassword.toCharArray() },
+                             privateKeyPassword = { webServerConfigData.ssl.privateKeyPassword.toCharArray() }) {
+                    port = webServerConfigData.ssl.sslPort
+                    keyStorePath = keyStoreFile
+                }
             }
             module(Application::module)
         }
@@ -59,17 +64,18 @@ class WebServer: KoinComponent {
 
 private fun Application.module() {
     val plugin: MoripaAPI by inject(MoripaAPI::class.java)
-    val webServerConfig: WebServerConfig = get(WebServerConfig::class.java)
+    val webServerConfigData: WebServerConfigData = get(WebServerConfigData::class.java)
+    val jwtConfigData: JWTConfigData = get(JWTConfigData::class.java)
     install(ContentNegotiation) {
         json()
     }
-    val jwkProvider = JwkProviderBuilder(webServerConfig.jwt.issuer).cached(10, 24, TimeUnit.HOURS).rateLimited(
+    val jwkProvider = JwkProviderBuilder(jwtConfigData.issuer).cached(10, 24, TimeUnit.HOURS).rateLimited(
         10, 1, TimeUnit.MINUTES
     ).build()
     install(Authentication) {
         jwt("auth-jwt") {
-            realm = webServerConfig.jwt.realm
-            verifier(jwkProvider, webServerConfig.jwt.issuer) {
+            realm = jwtConfigData.realm
+            verifier(jwkProvider, jwtConfigData.issuer) {
                 acceptLeeway(3)
             }
             validate { credential ->
@@ -93,6 +99,8 @@ private fun Application.module() {
                 call.respondText("Hello World!")
             }
         }
+        oauthRouter()
+
         authenticate("auth-jwt") {
             get("/hello") {
                 val principal = call.principal<JWTPrincipal>()

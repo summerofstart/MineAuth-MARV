@@ -5,6 +5,7 @@
 - [RFC 7515 - JSON Web Signature (JWS)](https://datatracker.ietf.org/doc/html/rfc7515)
 - [RFC 7519 - JSON Web Token (JWT)](https://datatracker.ietf.org/doc/html/rfc7519)
 - [公開資料 | OpenID ファウンデーション・ジャパン](https://www.openid.or.jp/document/)
+- [Nimbus JWT + JOSE の使い方](https://zenn.dev/com4dc/scraps/903123894ef5c5)
 
 
 ## About Oauth2.0
