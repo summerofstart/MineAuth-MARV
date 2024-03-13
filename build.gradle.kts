@@ -36,7 +36,7 @@ dependencies {
     val koinVersion = "3.5.3"
     val coroutineVersion = "1.8.0"
     val serializationVersion = "1.6.3"
-    val ktorVersion = "2.3.8"
+    val ktorVersion = "2.3.9"
 
     compileOnly("io.papermc.paper:paper-api:$paperVersion")
 
