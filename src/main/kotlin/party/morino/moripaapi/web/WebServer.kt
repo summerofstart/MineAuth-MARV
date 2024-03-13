@@ -7,7 +7,6 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.engine.*
-import io.ktor.server.http.content.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
@@ -22,7 +21,7 @@ import party.morino.moripaapi.file.config.JWTConfigData
 import party.morino.moripaapi.file.config.WebServerConfigData
 import party.morino.moripaapi.utils.PlayerUtils.toOfflinePlayer
 import party.morino.moripaapi.utils.PlayerUtils.toUUID
-import party.morino.moripaapi.web.router.oauth.OAuthRouter.oauthRouter
+import party.morino.moripaapi.web.router.auth.oauth.OAuthRouter.oauthRouter
 import java.security.KeyStore
 import java.util.concurrent.TimeUnit
 
@@ -113,6 +112,5 @@ private fun Application.module() {
                 )
             }
         }
-        staticFiles(".well-known", plugin.dataFolder, "jwks.json")
     }
 }

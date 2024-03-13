@@ -1,4 +1,4 @@
-package party.morino.moripaapi.web.router.oauth
+package party.morino.moripaapi.web.router.auth.oauth
 
 import io.ktor.server.routing.*
 import org.koin.core.component.KoinComponent
