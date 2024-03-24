@@ -45,12 +45,12 @@ dependencies {
     implementation("com.github.Revxrsal.Lamp:common:$lampVersion")
     implementation("com.github.Revxrsal.Lamp:bukkit:$lampVersion")
 
-    library("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
 
-    library("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:$mccoroutineVersion")
-    library("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:$mccoroutineVersion")
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:$mccoroutineVersion")
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:$mccoroutineVersion")
 
     implementation("io.ktor:ktor-server-core:$ktorVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
@@ -63,6 +63,7 @@ dependencies {
     implementation("io.ktor:ktor-client-java:$ktorVersion")
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-server-velocity:$ktorVersion")
 
     library("org.bouncycastle:bcpkix-jdk18on:1.77")
     library("org.bouncycastle:bcprov-jdk18on:1.77")
@@ -115,6 +116,11 @@ bukkit {
     main = "$group.moripaapi.MoripaAPI"
 
     apiVersion = "1.20"
+
+    libraries = listOf(
+        "com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.14.0",
+        "com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.14.0",
+    )
 }
 
 configurations {

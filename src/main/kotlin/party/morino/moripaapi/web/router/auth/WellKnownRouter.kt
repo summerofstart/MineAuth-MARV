@@ -7,7 +7,7 @@ import org.koin.core.component.inject
 import party.morino.moripaapi.MoripaAPI
 
 object WellKnownRouter: KoinComponent {
-    val plugin: MoripaAPI by inject()
+    private val plugin: MoripaAPI by inject()
     fun Route.wellKnownRouter() {
         staticFiles(".well-known", plugin.dataFolder, "jwks.json")
     }

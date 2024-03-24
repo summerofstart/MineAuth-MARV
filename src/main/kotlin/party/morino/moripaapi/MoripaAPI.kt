@@ -1,22 +1,18 @@
 package party.morino.moripaapi
 
-import com.github.shynixn.mccoroutine.bukkit.launch
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import com.github.shynixn.mccoroutine.bukkit.SuspendingJavaPlugin
 import org.bukkit.Bukkit
-import org.bukkit.plugin.java.JavaPlugin
 import org.koin.core.context.GlobalContext
 import org.koin.dsl.module
 import party.morino.moripaapi.commands.HelpCommand
 import party.morino.moripaapi.file.Config
-import party.morino.moripaapi.utils.coroutines.async
 import party.morino.moripaapi.web.WebServer
 import revxrsal.commands.bukkit.BukkitCommandHandler
 import revxrsal.commands.ktx.supportSuspendFunctions
 
-open class MoripaAPI: JavaPlugin() {
+open class MoripaAPI: SuspendingJavaPlugin() {
     private lateinit var plugin: MoripaAPI
-    override fun onEnable() { // Plugin startup logic
+    override suspend fun onEnableAsync() {
         plugin = this
         setCommand()
         setupKoin()
@@ -39,7 +35,7 @@ open class MoripaAPI: JavaPlugin() {
         }
     }
 
-    override fun onDisable() { // Plugin shutdown logic
+    override suspend fun onDisableAsync() {
         WebServer.stopServer()
     }
 

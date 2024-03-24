@@ -11,6 +11,9 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.server.velocity.*
+import org.apache.velocity.runtime.RuntimeConstants
+import org.apache.velocity.runtime.resource.loader.FileResourceLoader
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.core.component.inject
@@ -21,7 +24,7 @@ import party.morino.moripaapi.file.config.JWTConfigData
 import party.morino.moripaapi.file.config.WebServerConfigData
 import party.morino.moripaapi.utils.PlayerUtils.toOfflinePlayer
 import party.morino.moripaapi.utils.PlayerUtils.toUUID
-import party.morino.moripaapi.web.router.auth.oauth.OAuthRouter.oauthRouter
+import party.morino.moripaapi.web.router.auth.AuthRouter.authRouter
 import java.security.KeyStore
 import java.util.concurrent.TimeUnit
 
@@ -68,6 +71,11 @@ private fun Application.module() {
     install(ContentNegotiation) {
         json()
     }
+    install(Velocity) {
+        setProperty(RuntimeConstants.RESOURCE_LOADER, "file")
+        setProperty("file.resource.loader.class", FileResourceLoader::class.java.name)
+        setProperty("file.resource.loader.path", plugin.dataFolder.resolve("templates").absolutePath)
+    }
     val jwkProvider = JwkProviderBuilder(jwtConfigData.issuer).cached(10, 24, TimeUnit.HOURS).rateLimited(
         10, 1, TimeUnit.MINUTES
     ).build()
@@ -98,7 +106,7 @@ private fun Application.module() {
                 call.respondText("Hello World!")
             }
         }
-        oauthRouter()
+        authRouter()
 
         authenticate("auth-jwt") {
             get("/hello") {
