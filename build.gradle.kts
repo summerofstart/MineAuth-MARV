@@ -68,6 +68,8 @@ dependencies {
     library("org.bouncycastle:bcpkix-jdk18on:1.77")
     library("org.bouncycastle:bcprov-jdk18on:1.77")
 
+    implementation("com.password4j:password4j:1.8.1")
+
     library("com.nimbusds:nimbus-jose-jwt:9.38-rc3")
 
     library("ch.qos.logback:logback-classic:1.3.14")

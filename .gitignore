@@ -1,6 +1,9 @@
 # User-specific stuff
 .idea/
 
+bin/
+.vscode
+
 docs/site/**
 
 *.iml
@@ -86,7 +89,7 @@ ehthumbs_vista.db
 # Dump file
 *.stackdump
 
-# Folder config file
+# Folder data file
 [Dd]esktop.ini
 
 # Recycle Bin used on file shares
@@ -105,7 +108,7 @@ $RECYCLE.BIN/
 .gradle
 build/
 
-# Ignore Gradle GUI config
+# Ignore Gradle GUI data
 gradle-app.setting
 
 # Cache of project

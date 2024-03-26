@@ -5,7 +5,7 @@ import org.bukkit.Bukkit
 import org.koin.core.context.GlobalContext
 import org.koin.dsl.module
 import party.morino.moripaapi.commands.HelpCommand
-import party.morino.moripaapi.file.Config
+import party.morino.moripaapi.file.config.Config
 import party.morino.moripaapi.web.WebServer
 import revxrsal.commands.bukkit.BukkitCommandHandler
 import revxrsal.commands.ktx.supportSuspendFunctions

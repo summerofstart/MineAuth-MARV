@@ -9,3 +9,6 @@
   "redirectUri": "https://oauthdebugger.com/debug"
 }
 ```
+
+`plugin-dir/assets` To copy from resources/assets and this is route to access assets
+`plugin-dir/templates` To copy from resources/templates

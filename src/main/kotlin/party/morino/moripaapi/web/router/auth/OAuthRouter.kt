@@ -8,11 +8,13 @@ import io.ktor.server.velocity.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import party.morino.moripaapi.MoripaAPI
+import party.morino.moripaapi.file.data.OAuthConfigData
 import party.morino.moripaapi.utils.json
 import party.morino.moripaapi.web.data.ClientData
 
 object OAuthRouter: KoinComponent {
     private val plugin: MoripaAPI by inject()
+    private val OAuthConfigData: OAuthConfigData by inject()
     fun Route.oauthRouter() {
         route("/oauth2") {
             get("/authorize") {
@@ -46,8 +48,12 @@ object OAuthRouter: KoinComponent {
                     "redirectUri" to redirectUri,
                     "responseType" to "code",
                     "state" to state,
-                    "scope" to scope
+                    "scope" to scope,
+                    "logoUrl" to OAuthConfigData.logoUrl,
+                    "ApplicationName" to OAuthConfigData.applicationName
                 )
+
+                println(model)
                 call.respond(VelocityContent("authorize.vm", model))
             }
         }

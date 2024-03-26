@@ -20,8 +20,8 @@ import org.koin.core.component.inject
 import org.koin.java.KoinJavaComponent.get
 import org.koin.java.KoinJavaComponent.inject
 import party.morino.moripaapi.MoripaAPI
-import party.morino.moripaapi.file.config.JWTConfigData
-import party.morino.moripaapi.file.config.WebServerConfigData
+import party.morino.moripaapi.file.data.JWTConfigData
+import party.morino.moripaapi.file.data.WebServerConfigData
 import party.morino.moripaapi.utils.PlayerUtils.toOfflinePlayer
 import party.morino.moripaapi.utils.PlayerUtils.toUUID
 import party.morino.moripaapi.web.router.auth.AuthRouter.authRouter
