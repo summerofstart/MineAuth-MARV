@@ -37,6 +37,7 @@ dependencies {
     val coroutineVersion = "1.8.0"
     val serializationVersion = "1.6.3"
     val ktorVersion = "2.3.9"
+    val exposedVersion = "0.46.0"
 
     compileOnly("io.papermc.paper:paper-api:$paperVersion")
 
@@ -73,6 +74,11 @@ dependencies {
     library("com.nimbusds:nimbus-jose-jwt:9.38-rc3")
 
     library("ch.qos.logback:logback-classic:1.3.14")
+
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
 
     implementation("io.insert-koin:koin-core:$koinVersion")
 }

@@ -18,16 +18,17 @@ object OAuthRouter: KoinComponent {
     fun Route.oauthRouter() {
         route("/oauth2") {
             get("/authorize") {
+                val responseType = call.parameters["response_type"]
                 val clientId = call.parameters["client_id"]
                 val redirectUri = call.parameters["redirect_uri"]
-                val responseType = call.parameters["response_type"]
-                val state = call.parameters["state"] ?: ""
                 val scope = call.parameters["scope"]
+                val state = call.parameters["state"]
 
-                if (clientId == null || redirectUri == null || scope == null || responseType != "code") {
+                if (clientId == null || redirectUri == null || scope == null || responseType != "code" || state == null) {
                     call.respond(HttpStatusCode.BadRequest, "Invalid request")
                     return@get
                 }
+
                 val clientDataFile = plugin.dataFolder.resolve("clients").resolve("$clientId").resolve("data.json")
                 if (!clientDataFile.exists()) {
                     call.respond(HttpStatusCode.BadRequest, "Invalid client")
@@ -49,13 +50,15 @@ object OAuthRouter: KoinComponent {
                     "responseType" to "code",
                     "state" to state,
                     "scope" to scope,
+
                     "logoUrl" to OAuthConfigData.logoUrl,
-                    "ApplicationName" to OAuthConfigData.applicationName
+                    "applicationName" to OAuthConfigData.applicationName,
                 )
 
-                println(model)
                 call.respond(VelocityContent("authorize.vm", model))
             }
+
+            post {}
         }
     }
 }

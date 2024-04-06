@@ -1,4 +1,4 @@
-package party.morino.moripaapi.file.config
+package party.morino.moripaapi.file.load.config
 
 import kotlinx.serialization.encodeToString
 import org.koin.core.context.loadKoinModules
@@ -8,7 +8,7 @@ import party.morino.moripaapi.utils.json
 import java.io.File
 
 class OAuthConfigLoader: AbstractConfigLoader() {
-    override val configFile: File = plugin.dataFolder.resolve("config").resolve("oauth.json")
+    override val configFile: File = plugin.dataFolder.resolve("load").resolve("oauth.json")
 
     override fun load() {
         if (!configFile.exists()) {

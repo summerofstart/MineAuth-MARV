@@ -103,7 +103,7 @@ object KeyUtils: KoinComponent {
             plugin.logger.warning("jwks file not found.")
             generateJWKs(jwksFile, randomKeyAlias)
         }
-        val jwtConfigFile = plugin.dataFolder.resolve("config").resolve("jwt.json")
+        val jwtConfigFile = plugin.dataFolder.resolve("load").resolve("jwt.json")
         if (!jwtConfigFile.exists()) {
             plugin.logger.warning("jwtConfig file not found.")
             generateJWTConfig(jwtConfigFile, randomKeyAlias)

@@ -1,4 +1,4 @@
-package party.morino.moripaapi.file.config
+package party.morino.moripaapi.file.load.config
 
 import kotlinx.serialization.encodeToString
 import org.koin.core.context.loadKoinModules
@@ -8,7 +8,7 @@ import party.morino.moripaapi.utils.json
 import java.io.File
 
 class WebConfigLoader: AbstractConfigLoader() {
-    override val configFile: File = plugin.dataFolder.resolve("config").resolve("web-server.json")
+    override val configFile: File = plugin.dataFolder.resolve("load").resolve("web-server.json")
 
     override fun load() {
         if (!configFile.exists()) {

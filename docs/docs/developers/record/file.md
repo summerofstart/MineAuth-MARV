@@ -10,5 +10,5 @@
 }
 ```
 
-`plugin-dir/assets` To copy from resources/assets and this is route to access assets
+`plugin-dir/assets` To copy from resources/assets and this is route to access assets <br>
 `plugin-dir/templates` To copy from resources/templates
