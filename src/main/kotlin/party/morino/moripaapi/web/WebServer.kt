@@ -7,6 +7,7 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.engine.*
+import io.ktor.server.http.content.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
@@ -20,8 +21,8 @@ import org.koin.core.component.inject
 import org.koin.java.KoinJavaComponent.get
 import org.koin.java.KoinJavaComponent.inject
 import party.morino.moripaapi.MoripaAPI
-import party.morino.moripaapi.file.config.JWTConfigData
-import party.morino.moripaapi.file.config.WebServerConfigData
+import party.morino.moripaapi.file.data.JWTConfigData
+import party.morino.moripaapi.file.data.WebServerConfigData
 import party.morino.moripaapi.utils.PlayerUtils.toOfflinePlayer
 import party.morino.moripaapi.utils.PlayerUtils.toUUID
 import party.morino.moripaapi.web.router.auth.AuthRouter.authRouter
@@ -72,9 +73,9 @@ private fun Application.module() {
         json()
     }
     install(Velocity) {
-        setProperty(RuntimeConstants.RESOURCE_LOADER, "file")
-        setProperty("file.resource.loader.class", FileResourceLoader::class.java.name)
-        setProperty("file.resource.loader.path", plugin.dataFolder.resolve("templates").absolutePath)
+        setProperty(RuntimeConstants.RESOURCE_LOADERS, "file")
+        setProperty("resource.loader.file.class", FileResourceLoader::class.java.name)
+        setProperty("resource.loader.file.path", plugin.dataFolder.resolve("templates").absolutePath)
     }
     val jwkProvider = JwkProviderBuilder(jwtConfigData.issuer).cached(10, 24, TimeUnit.HOURS).rateLimited(
         10, 1, TimeUnit.MINUTES
@@ -106,6 +107,8 @@ private fun Application.module() {
                 call.respondText("Hello World!")
             }
         }
+        staticFiles("assets", plugin.dataFolder.resolve("assets"))
+
         authRouter()
 
         authenticate("auth-jwt") {

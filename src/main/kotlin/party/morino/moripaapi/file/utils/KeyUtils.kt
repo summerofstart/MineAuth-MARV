@@ -18,7 +18,7 @@ import org.koin.core.component.inject
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 import party.morino.moripaapi.MoripaAPI
-import party.morino.moripaapi.file.config.JWTConfigData
+import party.morino.moripaapi.file.data.JWTConfigData
 import party.morino.moripaapi.utils.json
 import java.io.File
 import java.math.BigInteger
@@ -103,7 +103,7 @@ object KeyUtils: KoinComponent {
             plugin.logger.warning("jwks file not found.")
             generateJWKs(jwksFile, randomKeyAlias)
         }
-        val jwtConfigFile = plugin.dataFolder.resolve("jwtConfig.json")
+        val jwtConfigFile = plugin.dataFolder.resolve("load").resolve("jwt.json")
         if (!jwtConfigFile.exists()) {
             plugin.logger.warning("jwtConfig file not found.")
             generateJWTConfig(jwtConfigFile, randomKeyAlias)

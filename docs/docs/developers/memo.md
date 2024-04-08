@@ -4,3 +4,5 @@ PKCE (Proof Key for Code Exchange) is an extension to OAuth 2.0 that is used to 
 used to prevent interception of the authorization code.
 
 plugin/clients 配下に Client の情報を保存する。
+
+To use Client Credentials Grant for service account.

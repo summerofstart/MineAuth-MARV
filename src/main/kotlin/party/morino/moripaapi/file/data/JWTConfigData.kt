@@ -1,22 +1,8 @@
-package party.morino.moripaapi.file.config
+package party.morino.moripaapi.file.data
 
 import kotlinx.serialization.Serializable
 import party.morino.moripaapi.utils.UUIDSerializer
 import java.util.*
-
-@Serializable
-data class WebServerConfigData(
-    val port: Int = 8080, val ssl: SSLConfigData?
-)
-
-@Serializable
-data class SSLConfigData(
-    val sslPort: Int,
-    val keyStore: String,
-    val keyAlias: String,
-    val keyStorePassword: String,
-    val privateKeyPassword: String
-)
 
 @Serializable
 data class JWTConfigData(

@@ -19,6 +19,8 @@
 - [RFC 8628 - OAuth 2.0 Device Authorization Grant](https://datatracker.ietf.org/doc/html/rfc8628)
 - [「挫折しない OAuth / OpenID Connect 入門」のポイント](https://www.youtube.com/watch?v=L2LpmaQhQfw&t=611s)
 - [神](https://www.youtube.com/@55id)
+- [OAuth2.0 State の役割](https://qiita.com/ist-n-m/items/67a5a0fb4f50ac1e30c1)
+- [OAuth2.0 PKCEとは 〜Stateとの違い〜](https://qiita.com/ist-n-m/items/992c67b803ff460818ec)
 
 ## About OpenID Connect (OIDC)
 
