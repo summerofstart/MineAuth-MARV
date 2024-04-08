@@ -1,12 +1,12 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 plugins {
-    id("java")
-    kotlin("jvm") version "1.9.22"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("xyz.jpenilla.run-paper") version "2.2.3"
-    id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
-    kotlin("plugin.serialization") version "1.9.22"
+    java
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.shadow)
+    alias(libs.plugins.run.paper)
+    alias(libs.plugins.plugin.yml)
 }
 
 group = "party.morino"
@@ -30,57 +30,48 @@ repositories {
 
 
 dependencies {
-    val paperVersion = "1.20.4-R0.1-SNAPSHOT"
-    val mccoroutineVersion = "2.14.0"
-    val lampVersion = "3.1.9"
-    val koinVersion = "3.5.3"
-    val coroutineVersion = "1.8.0"
-    val serializationVersion = "1.6.3"
-    val ktorVersion = "2.3.9"
-    val exposedVersion = "0.46.0"
-
-    compileOnly("io.papermc.paper:paper-api:$paperVersion")
+    compileOnly(libs.paper.api)
 
     library(kotlin("stdlib"))
 
-    implementation("com.github.Revxrsal.Lamp:common:$lampVersion")
-    implementation("com.github.Revxrsal.Lamp:bukkit:$lampVersion")
+    implementation(libs.lamp.common)
+    implementation(libs.lamp.bukkit)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+    implementation(libs.kotlinx.serialization.json)
 
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:$mccoroutineVersion")
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:$mccoroutineVersion")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.mccoroutine.bukkit.api)
+    implementation(libs.mccoroutine.bukkit.core)
 
-    implementation("io.ktor:ktor-server-core:$ktorVersion")
-    implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-    implementation("io.ktor:ktor-server-auth:$ktorVersion")
-    implementation("io.ktor:ktor-server-auth-jwt:$ktorVersion")
-    implementation("io.ktor:ktor-network-tls-certificates:$ktorVersion")
-    implementation("io.ktor:ktor-client-core:$ktorVersion")
-    implementation("io.ktor:ktor-client-java:$ktorVersion")
-    implementation("io.ktor:ktor-client-logging:$ktorVersion")
-    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-    implementation("io.ktor:ktor-server-velocity:$ktorVersion")
+    implementation(libs.ktor.server.core)
+    implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.contentNegotiation)
+    implementation(libs.ktor.serialization.kotlinxJson)
+    implementation(libs.ktor.server.auth)
+    implementation(libs.ktor.server.authJwt)
+    implementation(libs.ktor.network.tlsCertificates)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.java)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.contentNegotiation)
+    implementation(libs.ktor.server.velocity)
 
-    library("org.bouncycastle:bcpkix-jdk18on:1.77")
-    library("org.bouncycastle:bcprov-jdk18on:1.77")
+    implementation(libs.bcpkix.jdk18on)
+    implementation(libs.bcprov.jdk18on)
 
-    implementation("com.password4j:password4j:1.8.1")
+    implementation(libs.password4j)
 
-    library("com.nimbusds:nimbus-jose-jwt:9.38-rc3")
+    implementation(libs.nimbus.jose.jwt)
 
-    library("ch.qos.logback:logback-classic:1.3.14")
+    implementation(libs.logback.classic)
 
-    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
-    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
-    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-    implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.dao)
+    implementation(libs.exposed.jdbc)
+    implementation(libs.exposed.java.time)
 
-    implementation("io.insert-koin:koin-core:$koinVersion")
+    implementation(libs.koin.core)
 }
 
 java {

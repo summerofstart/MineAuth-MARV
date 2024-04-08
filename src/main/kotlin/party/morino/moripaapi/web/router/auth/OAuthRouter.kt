@@ -34,8 +34,7 @@ object OAuthRouter: KoinComponent {
                     call.respond(HttpStatusCode.BadRequest, "Invalid client")
                     return@get
                 }
-                val clientData: ClientData = json.decodeFromString(clientDataFile.readText())
-
+                val clientData: ClientData = json.decodeFromString(clientDataFile.readText()) //TODO make better redirectUri check
                 if ((redirectUri.startsWith("http://") || redirectUri.startsWith("http://")) && redirectUri.startsWith(
                         clientData.redirectUri
                     )

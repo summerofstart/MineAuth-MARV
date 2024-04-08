@@ -19,4 +19,4 @@ jobs:
           python-version: 3.9
       - run: pip install mkdocs-material
       - run: git pull
-      - run: mkdocs gh-deploy --load-file ./docs/mkdocs.yml
+      - run: mkdocs gh-deploy --config-file ./docs/mkdocs.yml
