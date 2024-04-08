@@ -30,6 +30,7 @@ repositories {
 
 
 dependencies {
+
     compileOnly(libs.paper.api)
 
     library(kotlin("stdlib"))
