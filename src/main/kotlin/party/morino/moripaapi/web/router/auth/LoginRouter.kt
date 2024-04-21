@@ -12,8 +12,6 @@ object LoginRouter {
                 val model = mapOf<String, String>()
                 call.respond(VelocityContent("login.vm", model))
             }
-            post { // 認証処理 formから送られてきたデータを取得して認証処理を行う
-            }
         }
     }
 }

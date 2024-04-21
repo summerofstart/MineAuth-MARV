@@ -74,8 +74,10 @@ dependencies {
     implementation(libs.koin.core)
 }
 
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+kotlin {
+    jvmToolchain {
+        (this).languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }
 
 tasks {
@@ -117,8 +119,8 @@ bukkit {
     apiVersion = "1.20"
 
     libraries = listOf(
-        "com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.14.0",
-        "com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.14.0",
+        "com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.15.0",
+        "com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.15.0",
     )
 }
 
