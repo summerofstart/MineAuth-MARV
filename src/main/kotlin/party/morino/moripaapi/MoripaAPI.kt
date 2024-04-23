@@ -26,7 +26,7 @@ open class MoripaAPI: SuspendingJavaPlugin() {
 
         settingDatabase()
 
-        Bukkit.getScheduler().runTask(plugin, Runnable {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable {
             WebServer.settingServer()
             WebServer.startServer()
         })
