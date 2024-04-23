@@ -144,7 +144,7 @@ object KeyUtils: KoinComponent {
         jwksFile.writeText( jwkSet.toString(true))
     }
 
-    private fun getKeys(): Pair<PrivateKey, PublicKey> {
+    fun getKeys(): Pair<PrivateKey, PublicKey> {
         val privateKeyFile = plugin.dataFolder.resolve("privateKey.pem")
         val publicKeyFile = plugin.dataFolder.resolve("publicKey.pem")
         val privateKeyContent = privateKeyFile.readText().replace("-----BEGIN PRIVATE KEY-----", "")
