@@ -1,151 +1,182 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Authorization</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/i18next@23.10.1/dist/umd/i18next.min.js"></script>
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-</head>
-<body>
-    <h1 id="greeting"></h1>
-    <section class="dark:bg-slate-800">
-        <div
-            class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
-        >
+    <head>
+        <title>Authorization</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://unpkg.com/i18next@23.10.1/dist/umd/i18next.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        />
+    </head>
+    <body>
+        <h1 id="greeting"></h1>
+        <section class="dark:bg-slate-800">
             <div
-                href="#"
-                class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+                class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
             >
-                <img class="w-8 h-8 mr-2" src="$logoUrl" id="logoUrl" alt="logo" />
-                $ApplicationName
-            </div>
-            <div
-                class="w-full bg-white rounded-lg shadow border border-green-500 dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
-            >
-                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <h1
-                        class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white"
-                        id="signIn"
-                    >
-                    </h1>
+                <div
+                    href="#"
+                    class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+                >
+                    <img
+                        class="w-8 h-8 mr-2"
+                        src="$logoUrl"
+                        id="logoUrl"
+                        alt="logo"
+                    />
+                    $ApplicationName
+                </div>
+                <div
+                    class="w-full bg-white rounded-lg shadow border border-green-500 dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+                >
+                    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                        <h1
+                            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white"
+                            id="signIn"
+                        ></h1>
 
-                    <form class="space-y-4 md:space-y-6" action="#">
-                        <div>
-                            <label
-                                for="username"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                id="usernameLabel"
-                            ></label>
+                        <form class="space-y-4 md:space-y-6" action="#">
                             <input
-                                type="text"
-                                name="username"
-                                id="username"
-                                class="bg-gray-50 border border-green-500 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="username"
-                                required=""
+                                type="hidden"
+                                name="client_id"
+                                value="$clientId"
                             />
-                        </div>
-                        <div>
-                            <label
-                                for="password"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                id="passwordLabel"
-                            ></label>
-                            <div style="position: relative">
+                            <input
+                                type="hidden"
+                                name="redirect_uri"
+                                value="$redirectUri"
+                            />
+                            <input
+                                type="hidden"
+                                name="response_type"
+                                value="code"
+                            />
+                            <input type="hidden" name="state" value="$state" />
+                            <input type="hidden" name="scope" value="$scope" />
+                            <input type="hidden" name="code_challenge" value="$codeChallenge" />
+                            <input type="hidden" name="code_challenge_method" value="S256" />
+                            <div>
+                                <label
+                                    for="username"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    id="usernameLabel"
+                                ></label>
                                 <input
-                                    type="password"
-                                    name="password"
-                                    id="password"
+                                    type="text"
+                                    name="username"
+                                    id="username"
                                     class="bg-gray-50 border border-green-500 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="••••••••"
+                                    placeholder="username"
                                     required=""
                                 />
-                                <i
-                                    id="toggle-password"
-                                    class="fas fa-eye"
-                                    style="
-                                        position: absolute;
-                                        right: 10px;
-                                        top: 50%;
-                                        transform: translateY(-50%);
-                                        cursor: pointer;
-                                        color: #16a34a;
-                                    "
-                                ></i>
                             </div>
-                        </div>
-                        <div>
-                            <input
-                                type="submit"
-                                value=""
-                                id="authorize"
-                                class="w-full px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-green-900"
-                            />
-                        </div>
-                    </form>
+                            <div>
+                                <label
+                                    for="password"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    id="passwordLabel"
+                                ></label>
+                                <div style="position: relative">
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                        class="bg-gray-50 border border-green-500 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="••••••••"
+                                        required=""
+                                    />
+                                    <i
+                                        id="toggle-password"
+                                        class="fas fa-eye"
+                                        style="
+                                            position: absolute;
+                                            right: 10px;
+                                            top: 50%;
+                                            transform: translateY(-50%);
+                                            cursor: pointer;
+                                            color: #16a34a;
+                                        "
+                                    ></i>
+                                </div>
+                            </div>
+                            <div>
+                                <input
+                                    type="submit"
+                                    value=""
+                                    formmethod="post"
+                                    id="authorize"
+                                    class="w-full px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-green-900"
+                                />
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <script>
-        const passwordInput = document.getElementById("password");
-        const togglePassword = document.getElementById("toggle-password");
+        </section>
+        <script>
+            const passwordInput = document.getElementById("password");
+            const togglePassword = document.getElementById("toggle-password");
 
-        togglePassword.addEventListener("click", (event) => {
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                togglePassword.classList.remove("fa-eye");
-                togglePassword.classList.add("fa-eye-slash");
-            } else {
-                passwordInput.type = "password";
-                togglePassword.classList.remove("fa-eye-slash");
-                togglePassword.classList.add("fa-eye");
-            }
-        });
-    </script>
-    <script>
-        var userLang = navigator.language || navigator.userLanguage;
-        userLang = userLang.substring(0, 2); // "en-US"のような形式を"en"に変換します
-
-        // 利用可能な言語リソース
-        var availableLanguages = ['en', 'ja'];
-
-        // ユーザーの言語が利用可能な言語リソースに存在するか確認します
-        if (!availableLanguages.includes(userLang)) {
-            userLang = 'en'; // デフォルトの言語に設定します
-        }
-
-        i18next.init({
-            lng: userLang, // ブラウザの言語設定を使用します
-            resources: {
-                en: {
-                    translation: {
-                        "greeting": "Hello",
-                        "signIn": "Sign in to your account",
-                        "usernameLabel": "Your username",
-                        "passwordLabel": "Password",
-                        "authorize": "Authorize"
-                    }
-                },
-                ja: {
-                    translation: {
-                        "greeting": "こんにちは",
-                        "signIn": "もりぱアカウントでサインイン",
-                        "usernameLabel": "ユーザー名",
-                        "passwordLabel": "パスワード",
-                        "authorize": "認証"
-                    }
+            togglePassword.addEventListener("click", (event) => {
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    togglePassword.classList.remove("fa-eye");
+                    togglePassword.classList.add("fa-eye-slash");
+                } else {
+                    passwordInput.type = "password";
+                    togglePassword.classList.remove("fa-eye-slash");
+                    togglePassword.classList.add("fa-eye");
                 }
+            });
+        </script>
+        <script>
+            var userLang = navigator.language || navigator.userLanguage;
+            userLang = userLang.substring(0, 2); // "en-US"のような形式を"en"に変換します
+
+            // 利用可能な言語リソース
+            var availableLanguages = ["en", "ja"];
+
+            // ユーザーの言語が利用可能な言語リソースに存在するか確認します
+            if (!availableLanguages.includes(userLang)) {
+                userLang = "en"; // デフォルトの言語に設定します
             }
-        }, function(err, t) {
-            document.getElementById('signIn').innerHTML = i18next.t('signIn');
-            document.getElementById('usernameLabel').innerHTML = i18next.t('usernameLabel');
-            document.getElementById('passwordLabel').innerHTML = i18next.t('passwordLabel');
-            document.getElementById('authorize').value = i18next.t('authorize');
-        });
-    </script>
-</body>
+
+            i18next.init(
+                {
+                    lng: userLang, // ブラウザの言語設定を使用します
+                    resources: {
+                        en: {
+                            translation: {
+                                greeting: "Hello",
+                                signIn: "Sign in to your account",
+                                usernameLabel: "Your username",
+                                passwordLabel: "Password",
+                                authorize: "Authorize",
+                            },
+                        },
+                        ja: {
+                            translation: {
+                                greeting: "こんにちは",
+                                signIn: "もりぱアカウントでサインイン",
+                                usernameLabel: "ユーザー名",
+                                passwordLabel: "パスワード",
+                                authorize: "認証",
+                            },
+                        },
+                    },
+                },
+                function (err, t) {
+                    document.getElementById("signIn").innerHTML =
+                        i18next.t("signIn");
+                    document.getElementById("usernameLabel").innerHTML =
+                        i18next.t("usernameLabel");
+                    document.getElementById("passwordLabel").innerHTML =
+                        i18next.t("passwordLabel");
+                    document.getElementById("authorize").value =
+                        i18next.t("authorize");
+                }
+            );
+        </script>
+    </body>
 </html>

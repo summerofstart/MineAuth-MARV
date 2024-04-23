@@ -78,6 +78,7 @@ open class MoripaAPI: SuspendingJavaPlugin() {
         transaction {
             SchemaUtils.create(UserAuthData)
         }
+        logger.info("Database connected")
 
     }
 }
