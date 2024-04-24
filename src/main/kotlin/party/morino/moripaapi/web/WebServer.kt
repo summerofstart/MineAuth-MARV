@@ -26,6 +26,8 @@ import party.morino.moripaapi.file.data.WebServerConfigData
 import party.morino.moripaapi.utils.PlayerUtils.toOfflinePlayer
 import party.morino.moripaapi.utils.PlayerUtils.toUUID
 import party.morino.moripaapi.web.router.auth.AuthRouter.authRouter
+import party.morino.moripaapi.web.router.common.CommonRouter.commonRouter
+import party.morino.moripaapi.web.router.plugin.PluginRouter.pluginRouter
 import java.security.KeyStore
 import java.util.concurrent.TimeUnit
 
@@ -81,19 +83,10 @@ private fun Application.module() {
         10, 1, TimeUnit.MINUTES
     ).build()
     install(Authentication) {
-        jwt("auth-jwt") {
+        jwt("user-oauth-token") {
             realm = jwtConfigData.realm
             verifier(jwkProvider, jwtConfigData.issuer) {
                 acceptLeeway(3)
-            }
-            validate { credential ->
-                if (credential.payload.getClaim("username").asString() == credential.payload.getClaim("uuid").asString()
-                        .toUUID().toOfflinePlayer().name
-                ) {
-                    JWTPrincipal(credential.payload)
-                } else {
-                    null
-                }
             }
             challenge { _, _ ->
                 call.respond(HttpStatusCode.Unauthorized, "Token is not valid or has expired")
@@ -110,8 +103,14 @@ private fun Application.module() {
         staticFiles("assets", plugin.dataFolder.resolve("assets"))
 
         authRouter()
+        route("/api/v1/commons") {
+            commonRouter()
+        }
+        route("/api/v1/plugins") {
+            pluginRouter()
+        }
 
-        authenticate("auth-jwt") {
+        authenticate("user-oauth-token") {
             get("/hello") {
                 val principal = call.principal<JWTPrincipal>()
                 val uuid = principal!!.payload.getClaim("uuid").asString()

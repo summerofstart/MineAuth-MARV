@@ -7,7 +7,7 @@ import revxrsal.commands.annotation.Description
 import revxrsal.commands.annotation.Subcommand
 import revxrsal.commands.help.CommandHelp
 
-@Command("moripaapi","ma")
+@Command("moripaapi", "ma", "mapi")
 class HelpCommand {
     @Subcommand("help")
     @Description("Shows the help menu")

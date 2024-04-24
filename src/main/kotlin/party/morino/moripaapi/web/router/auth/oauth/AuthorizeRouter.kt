@@ -13,6 +13,7 @@ import org.bukkit.Bukkit
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 import org.koin.core.component.inject
 import party.morino.moripaapi.MoripaAPI
 import party.morino.moripaapi.database.UserAuthData
@@ -25,7 +26,6 @@ import party.morino.moripaapi.web.router.auth.oauth.OAuthRouter.authorizedData
 
 object AuthorizeRouter: KoinComponent {
     private val plugin: MoripaAPI by inject()
-    private val OAuthConfigData: OAuthConfigData by inject()
 
     fun Route.authorizeRouter() {
         get("/authorize") {
@@ -67,8 +67,8 @@ object AuthorizeRouter: KoinComponent {
                 "scope" to scope,
                 "codeChallenge" to codeChallenge,
                 "codeChallengeMethod" to codeChallengeMethod,
-                "logoUrl" to OAuthConfigData.logoUrl,
-                "applicationName" to OAuthConfigData.applicationName,
+                "logoUrl" to get<OAuthConfigData>().logoUrl,
+                "applicationName" to get<OAuthConfigData>().applicationName,
             )
 
             call.respond(VelocityContent("authorize.vm", model))
