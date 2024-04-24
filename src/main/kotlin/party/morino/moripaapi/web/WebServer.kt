@@ -88,6 +88,16 @@ private fun Application.module() {
             verifier(jwkProvider, jwtConfigData.issuer) {
                 acceptLeeway(3)
             }
+
+            validate { credential ->
+                val clientId = credential.payload.getClaim("client_id").asString()
+                val folder = plugin.dataFolder.resolve("clients").resolve(clientId).resolve("data.json")
+                if (folder.exists()) {
+                    JWTPrincipal(credential.payload)
+                } else {
+                    null
+                }
+            }
             challenge { _, _ ->
                 call.respond(HttpStatusCode.Unauthorized, "Token is not valid or has expired")
             }
@@ -113,7 +123,7 @@ private fun Application.module() {
         authenticate("user-oauth-token") {
             get("/hello") {
                 val principal = call.principal<JWTPrincipal>()
-                val uuid = principal!!.payload.getClaim("uuid").asString()
+                val uuid = principal!!.payload.getClaim("playerUniqueId").asString()
                 val expiresAt = principal.expiresAt?.time?.minus(System.currentTimeMillis())
                 call.respondText(
                     "Hello, ${
@@ -121,6 +131,6 @@ private fun Application.module() {
                     }! Token is expired at $expiresAt ms."
                 )
             }
-        }
+        } //        openAPI(path = "openapi", swaggerFile = "openapi/documentation.yaml") {}
     }
 }

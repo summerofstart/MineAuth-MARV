@@ -2,10 +2,10 @@
 paper = "1.20.4-R0.1-SNAPSHOT"
 mccoroutine = "2.15.0"
 lamp = "3.2.1"
-koinVersion = "3.5.4"
+koinVersion = "3.5.6"
 coroutine = "1.8.0"
 serialization = "1.6.3"
-ktor = "2.3.9"
+ktor = "2.3.10"
 exposed = "0.49.0"
 password4j = "1.8.1"
 nimbus = "9.38-rc3"
@@ -32,6 +32,7 @@ ktor-client-java = { group = "io.ktor", name = "ktor-client-java", version.ref =
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 ktor-client-contentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-server-velocity = { group = "io.ktor", name = "ktor-server-velocity", version.ref = "ktor" }
+ktor-server-openapi = { group = "io.ktor", name = "ktor-server-openapi", version.ref = "ktor" }
 password4j = { group = "com.password4j", name = "password4j", version.ref = "password4j" }
 nimbus-jose-jwt = { group = "com.nimbusds", name = "nimbus-jose-jwt", version.ref = "nimbus" }
 logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }

@@ -14,6 +14,8 @@ This is an endpoint list for OAuth2.0 and OpenID Connect (OIDC) for Moripa API.
 
 - [ ] Discovery endpoint `/.well-known/openid-configuration` 
 - [x] JWKs endpoint `/.well-known/jwks.json`
+- [x] UserInfo
+  endpoint `/userinfo` [OIDC Core 5.3](https://openid-foundation-japan.github.io/openid-connect-core-1_0.ja.html#UserInfo)
 
 ### Plugin
 

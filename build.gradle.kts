@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.contentNegotiation)
     implementation(libs.ktor.server.velocity)
+    implementation(libs.ktor.server.openapi)
 
     implementation(libs.bcpkix.jdk18on)
     implementation(libs.bcprov.jdk18on)
@@ -92,6 +93,9 @@ tasks {
     build {
         dependsOn(shadowJar)
     }
+    shadowJar {
+
+    }
     runServer {
         minecraftVersion("1.20.4")
     }
@@ -120,9 +124,14 @@ bukkit {
     apiVersion = "1.20"
 
     libraries = listOf(
-        "com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.15.0",
-        "com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.15.0",
+        libs.mccoroutine.bukkit.core.asString(),
+        libs.mccoroutine.bukkit.api.asString(),
     )
+}
+
+fun Provider<MinimalExternalModuleDependency>.asString(): String {
+    val dependency = this.get()
+    return dependency.module.toString() + ":" + dependency.versionConstraint.toString()
 }
 
 configurations {
