@@ -7,6 +7,7 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 import org.koin.core.component.inject
 import party.morino.moripaapi.MoripaAPI
 import party.morino.moripaapi.file.data.JWTConfigData
@@ -18,7 +19,6 @@ import java.util.*
 
 object TokenRouter: KoinComponent {
     val plugin: MoripaAPI by inject()
-    private val jwtConfigData: JWTConfigData by inject()
     fun Route.tokenRouter() {
         post("/token") {
             val grantType = call.parameters["grant_type"]
@@ -53,7 +53,7 @@ object TokenRouter: KoinComponent {
                 call.respond(HttpStatusCode.BadRequest, "Invalid code_verifier")
                 return@post
             }
-            val token = JWT.create().withIssuer(jwtConfigData.issuer).withAudience(data.clientId)
+            val token = JWT.create().withIssuer(get<JWTConfigData>().issuer).withAudience(data.clientId)
                 .withNotBefore(Date(System.currentTimeMillis()))
                 .withExpiresAt(Date(System.currentTimeMillis() + 3_600_000))
                 .withIssuedAt(Date(System.currentTimeMillis())).withJWTId(UUID.randomUUID().toString())
@@ -65,11 +65,12 @@ object TokenRouter: KoinComponent {
                         getKeys().first as java.security.interfaces.RSAPrivateKey
                     )
                 )
-            val refreshToken = JWT.create().withIssuer(jwtConfigData.issuer).withAudience(data.clientId)
+            val refreshToken = JWT.create().withIssuer(get<JWTConfigData>().issuer).withAudience(data.clientId)
                 .withNotBefore(Date(System.currentTimeMillis()))
                 .withExpiresAt(Date(System.currentTimeMillis() + (3_600_000.toLong() * 24 * 30)))
                 .withIssuedAt(Date(System.currentTimeMillis())).withJWTId(UUID.randomUUID().toString())
                 .withClaim("client_id", clientId).withClaim("playerUniqueId", data.uniqueId.toString())
+                .withClaim("scope", data.scope).withClaim("state", data.state).withClaim("scope", data.scope)
                 .withClaim("token_type", "refresh_token").sign(
                     Algorithm.RSA256(
                         getKeys().second as java.security.interfaces.RSAPublicKey,
