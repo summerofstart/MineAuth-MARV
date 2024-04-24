@@ -1,4 +1,4 @@
-package party.morino.moripaapi.web.router.common.user
+package party.morino.moripaapi.web.router.auth.oauth
 
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -12,7 +12,7 @@ import party.morino.moripaapi.web.router.common.data.ProfileData
 object ProfileRouter {
     fun Route.profileRouter() {
         authenticate("user-oauth-token") {
-            get("/profile/me") {
+            get("/userinfo") {
                 val principal = call.principal<JWTPrincipal>()
                 val offlinePlayer = principal!!.payload.getClaim("playerUniqueId").asString().toUUID().toOfflinePlayer()
                 val username = offlinePlayer.name!!
