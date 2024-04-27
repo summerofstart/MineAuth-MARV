@@ -10,13 +10,13 @@ theme:
     - content.code.copy
   palette:
     - scheme: default
-      primary : green
+      primary: green
       accent: light green
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - scheme: slate
-      primary : green
+      primary: green
       accent: light green
       toggle:
         icon: material/brightness-4
@@ -29,8 +29,20 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
 plugins:
+  - render_swagger:
+      allow_arbitrary_locations: true
   - search:
-      lang: ja
+      lang: en
+  - i18n:
+      docs_structure: folder
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+        - locale: ja
+          name: 日本語
+          build: true
 repo_url: https://github.com/morinoparty/Moripa-API
 repo_name: Moripa-API
 copyright: No Rights Reserved.
