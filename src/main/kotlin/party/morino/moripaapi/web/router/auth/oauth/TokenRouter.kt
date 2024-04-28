@@ -26,6 +26,7 @@ object TokenRouter: KoinComponent {
             val redirectUri = call.parameters["redirect_uri"]
             val clientId = call.parameters["client_id"]
             val codeVerifier = call.parameters["code_verifier"]
+            plugin.logger.info("Received token request with grant_type: $grantType, code: $code, redirect_uri: $redirectUri, client_id: $clientId, code_verifier: $codeVerifier")
             val data = authorizedData[code] ?: run {
                 authorizedData.remove(code)
                 call.respond(HttpStatusCode.BadRequest, "Invalid code")
