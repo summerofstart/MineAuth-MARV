@@ -31,18 +31,22 @@ object TokenRouter: KoinComponent {
                 call.respond(HttpStatusCode.BadRequest, "Invalid code")
                 return@post
             }
+            plugin.logger.info("Removing $code from authorizedData")
             authorizedData.remove(code)
 
             if (grantType == null || code == null || redirectUri == null || clientId == null || codeVerifier == null) {
+                plugin.logger.warning("Invalid request")
                 call.respond(HttpStatusCode.BadRequest, "Invalid request")
                 return@post
             }
             if (grantType != "authorization_code") {
+                plugin.logger.warning("Invalid grant_type is sent. Expected: authorization_code, Actual: $grantType")
                 call.respond(HttpStatusCode.BadRequest, "Invalid grant_type")
                 return@post
             }
 
             if (data.clientId != clientId || data.redirectUri != redirectUri) {
+                plugin.logger.warning("Invalid client_id or redirect_uri is sent. Expected: $clientId, $redirectUri, Actual: ${data.clientId}, ${data.redirectUri}")
                 call.respond(HttpStatusCode.BadRequest, "Invalid client_id or redirect_uri")
                 return@post
             }
