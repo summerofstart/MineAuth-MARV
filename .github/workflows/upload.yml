@@ -24,8 +24,7 @@ jobs:
         run: |
           before="${{ github.event.release.tag_name }}"
           after="${before//v/}"
-          sed -i -e "s/minecraft_plugin_version/$after/i" './build.gradle.kts'
-          cat ./build.gradle.kts
+          sed -i -e "s/minecraft_plugin_version/$after/i" './gradle.properties'
 
       - name: Build with Gradle
         run: ./gradlew build -x test
@@ -36,8 +35,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./build/libs/Moripa-API-1.0-SNAPSHOT-all.jar
-          asset_name: Moripa-API_${{ github.event.release.tag_name }}.jar
+          asset_path: ./mineauth-core/build/libs/MineAuth-${{ github.event.release.tag_name }}.jar
+          asset_name: MineAuth_${{ github.event.release.tag_name }}.jar
           asset_content_type: application/jar
 
 

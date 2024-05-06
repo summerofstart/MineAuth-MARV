@@ -1,4 +1,4 @@
-# Moripa-API
+# MineAuth
 
 This is a plugin for accessing all moripa from the web. 
 

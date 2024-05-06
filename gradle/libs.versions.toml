@@ -27,12 +27,12 @@ ktor-serialization-kotlinxJson = { group = "io.ktor", name = "ktor-serialization
 ktor-server-auth = { group = "io.ktor", name = "ktor-server-auth", version.ref = "ktor" }
 ktor-server-authJwt = { group = "io.ktor", name = "ktor-server-auth-jwt", version.ref = "ktor" }
 ktor-network-tlsCertificates = { group = "io.ktor", name = "ktor-network-tls-certificates", version.ref = "ktor" }
+ktor-server-velocity = { group = "io.ktor", name = "ktor-server-velocity", version.ref = "ktor" }
+ktor-server-openapi = { group = "io.ktor", name = "ktor-server-openapi", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-java = { group = "io.ktor", name = "ktor-client-java", version.ref = "ktor" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 ktor-client-contentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
-ktor-server-velocity = { group = "io.ktor", name = "ktor-server-velocity", version.ref = "ktor" }
-ktor-server-openapi = { group = "io.ktor", name = "ktor-server-openapi", version.ref = "ktor" }
 password4j = { group = "com.password4j", name = "password4j", version.ref = "password4j" }
 nimbus-jose-jwt = { group = "com.nimbusds", name = "nimbus-jose-jwt", version.ref = "nimbus" }
 logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
@@ -46,7 +46,16 @@ koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koinV
 
 [plugins]
 run-paper = { id = "xyz.jpenilla.run-paper", version = "2.2.3" }
-plugin-yml = { id = "net.minecrell.plugin-yml.bukkit", version = "0.6.0" }
+resource-factory = { id = "xyz.jpenilla.resource-factory", version = "1.1.1" }
 shadow = { id = "com.github.johnrengelman.shadow", version = "8.1.1" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "1.9.23" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version = "1.9.23" }
+dokka = { id = "org.jetbrains.dokka", version = "1.9.20" }
+
+[bundles]
+commands = ["lamp-common", "lamp-bukkit"]
+securities = ["password4j", "nimbus-jose-jwt", "bcpkix-jdk18on", "bcprov-jdk18on"]
+coroutines = ["mccoroutine-bukkit-api", "mccoroutine-bukkit-core" , "kotlinx-coroutines-core"]
+exposed = ["exposed-core", "exposed-dao", "exposed-jdbc", "exposed-java-time"]
+ktor-client = ["ktor-client-core", "ktor-client-java", "ktor-client-logging", "ktor-client-contentNegotiation"]
+ktor-server = ["ktor-server-core", "ktor-server-netty", "ktor-server-contentNegotiation", "ktor-serialization-kotlinxJson", "ktor-server-auth", "ktor-server-authJwt", "ktor-network-tlsCertificates", "ktor-server-velocity", "ktor-server-openapi", "logback-classic"]
