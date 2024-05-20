@@ -44,18 +44,18 @@ dependencies {
 
 kotlin {
     jvmToolchain {
-        (this).languageVersion.set(JavaLanguageVersion.of(17))
+        (this).languageVersion.set(JavaLanguageVersion.of(21))
     }
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 tasks {
     compileKotlin {
-        kotlinOptions.jvmTarget = "17"
+        kotlinOptions.jvmTarget = "21"
         kotlinOptions.javaParameters = true
     }
     compileTestKotlin {
-        kotlinOptions.jvmTarget = "17"
+        kotlinOptions.jvmTarget = "21"
     }
     build {
         dependsOn("shadowJar")
@@ -65,7 +65,7 @@ tasks {
         options.encoding = "UTF-8"
     }
     runServer {
-        minecraftVersion("1.20.4")
+        minecraftVersion("1.20.5")
     }
 }
 
