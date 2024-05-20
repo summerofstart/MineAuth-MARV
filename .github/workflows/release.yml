@@ -21,11 +21,14 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
           cache: 'gradle'
 
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build -x test
 
       - uses: release-drafter/release-drafter@v5
         id: release-drafter

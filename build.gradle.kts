@@ -3,6 +3,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 plugins {
     java
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.dokka)
 }
 
 val projectVersion: String by project
@@ -12,10 +13,6 @@ version = projectVersion
 buildscript {
     repositories {
         mavenCentral()
-    }
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
-        classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.5.31")
     }
 }
 

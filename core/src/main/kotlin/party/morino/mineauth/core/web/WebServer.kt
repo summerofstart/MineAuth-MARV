@@ -69,7 +69,6 @@ object WebServer: KoinComponent {
 
 private fun Application.module() {
     val plugin: MineAuth by inject(MineAuth::class.java)
-    val webServerConfigData: WebServerConfigData = get(WebServerConfigData::class.java)
     val jwtConfigData: JWTConfigData = get(JWTConfigData::class.java)
     install(ContentNegotiation) {
         json()
@@ -110,6 +109,14 @@ private fun Application.module() {
                 call.respondText("Hello World!")
             }
         }
+        route("/list") {
+            get {
+                val list = getRoutes(this@routing).map { it.toString() }
+                call.respond(
+                    list
+                )
+            }
+        }
         staticFiles("assets", plugin.dataFolder.resolve("assets"))
 
         authRouter()
@@ -133,4 +140,13 @@ private fun Application.module() {
             }
         } //        openAPI(path = "openapi", swaggerFile = "openapi/documentation.yaml") {}
     }
+}
+
+private fun getRoutes(route: Route): List<Route> {
+    val list = mutableListOf<Route>()
+    route.children.forEach {
+        list.addAll(getRoutes(it))
+    }
+    list.add(route)
+    return list
 }
