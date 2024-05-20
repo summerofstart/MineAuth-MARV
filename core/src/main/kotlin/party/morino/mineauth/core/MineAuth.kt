@@ -2,9 +2,11 @@ package party.morino.mineauth.core
 
 import com.github.shynixn.mccoroutine.bukkit.SuspendingJavaPlugin
 import org.bukkit.Bukkit
+import org.bukkit.plugin.java.JavaPlugin
 import org.koin.core.context.GlobalContext
 import org.koin.dsl.module
 import party.morino.mineauth.api.MineAuthAPI
+import party.morino.mineauth.api.RegisterHandler
 import party.morino.mineauth.core.commands.HelpCommand
 import party.morino.mineauth.core.commands.RegisterCommand
 import party.morino.mineauth.core.commands.ReloadCommand
@@ -66,5 +68,8 @@ open class MineAuth: SuspendingJavaPlugin() , MineAuthAPI {
         }
     }
 
+    override fun createHandler(plugin: JavaPlugin): RegisterHandler {
+        TODO("Not yet implemented")
+    }
 
 }

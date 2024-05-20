@@ -18,11 +18,11 @@ repositories {
     maven("https://repo.codemc.io/repository/maven-public/")
 }
 
-group = "party.morino"
-version = "1.0-SNAPSHOT"
+group = project.group
+version = project.version.toString()
 
 dependencies {
-    implementation(project(":mineauth-api"))
+    implementation(project(":api"))
     compileOnly(libs.paper.api)
 
     implementation(libs.bundles.commands)
@@ -39,12 +39,14 @@ dependencies {
     implementation(libs.bundles.exposed)
 
     implementation(libs.koin.core)
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 kotlin {
     jvmToolchain {
         (this).languageVersion.set(JavaLanguageVersion.of(17))
     }
+    jvmToolchain(17)
 }
 
 tasks {
@@ -77,6 +79,7 @@ sourceSets.main {
             main = "$group.mineauth.core.MineAuth"
             apiVersion = "1.20"
             libraries = libs.bundles.coroutines.asString()
+            softDepend = listOf("Vault")
         }
     }
 }
