@@ -82,7 +82,7 @@ private fun Application.module() {
         10, 1, TimeUnit.MINUTES
     ).build()
     install(Authentication) {
-        jwt("user-oauth-token") {
+        jwt(JwtCompleteCode.USER_TOKEN.code) {
             realm = jwtConfigData.realm
             verifier(jwkProvider, jwtConfigData.issuer) {
                 acceptLeeway(3)
@@ -111,7 +111,7 @@ private fun Application.module() {
         }
         route("/list") {
             get {
-                val list = getRoutes(this@routing).map { it.toString() }
+                val list = this@routing.getRoutes().map { it.asString() }
                 call.respond(
                     list
                 )
@@ -142,11 +142,27 @@ private fun Application.module() {
     }
 }
 
-private fun getRoutes(route: Route): List<Route> {
+fun Route.getRoutes(): List<Route> {
     val list = mutableListOf<Route>()
+    val route = this
     route.children.forEach {
-        list.addAll(getRoutes(it))
+        list.addAll(it.getRoutes())
     }
     list.add(route)
     return list
+}
+
+fun Route.asString(): String {
+    val route = this
+    val selector = route.selector
+    return when (val parentRoute = route.parent?.toString()) {
+        null -> when (selector) {
+            is TrailingSlashRouteSelector -> "/"
+            else -> "/$selector"
+        }
+        else -> when (selector) {
+            is TrailingSlashRouteSelector -> if (parentRoute.endsWith('/')) parentRoute else "$parentRoute/"
+            else -> if (parentRoute.endsWith('/')) "$parentRoute$selector" else "$parentRoute/${selector}"
+        }
+    }
 }

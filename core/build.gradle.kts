@@ -18,7 +18,7 @@ repositories {
     maven("https://repo.codemc.io/repository/maven-public/")
 }
 
-group = project.group
+group = "party.morino"
 version = project.version.toString()
 
 dependencies {
@@ -40,6 +40,8 @@ dependencies {
 
     implementation(libs.koin.core)
     implementation(kotlin("stdlib-jdk8"))
+
+    compileOnly(libs.vault.api)
 }
 
 kotlin {
@@ -65,7 +67,18 @@ tasks {
         options.encoding = "UTF-8"
     }
     runServer {
-        minecraftVersion("1.20.5")
+        minecraftVersion("1.20.6")
+        val plugins = runPaper.downloadPluginsSpec {
+            //Vault
+            url("https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar")
+            //EssestialsX
+            url("https://ci.ender.zone/job/EssentialsX/lastSuccessfulBuild/artifact/jars/EssentialsX-2.21.0-dev+81-cde7184.jar")
+            //LuckPerms
+            url("https://ci.lucko.me/job/LuckPerms/lastSuccessfulBuild/artifact/bukkit/loader/build/libs/LuckPerms-Bukkit-5.4.128.jar")
+        }
+        downloadPlugins{
+            downloadPlugins.from(plugins)
+        }
     }
 }
 

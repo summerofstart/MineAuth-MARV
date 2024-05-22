@@ -20,8 +20,8 @@ import party.morino.mineauth.core.database.UserAuthData
 import party.morino.mineauth.core.database.UserAuthData.uuid
 import party.morino.mineauth.core.file.data.OAuthConfigData
 import party.morino.mineauth.core.utils.json
-import party.morino.mineauth.core.web.data.AuthorizedData
-import party.morino.mineauth.core.web.data.ClientData
+import party.morino.mineauth.core.web.router.auth.data.AuthorizedData
+import party.morino.mineauth.core.web.router.auth.data.ClientData
 import party.morino.mineauth.core.web.router.auth.oauth.OAuthRouter.authorizedData
 
 object AuthorizeRouter: KoinComponent {
