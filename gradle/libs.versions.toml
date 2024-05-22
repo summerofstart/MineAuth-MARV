@@ -44,6 +44,8 @@ exposed-jdbc = { group = "org.jetbrains.exposed", name = "exposed-jdbc", version
 exposed-java-time = { group = "org.jetbrains.exposed", name = "exposed-java-time", version.ref = "exposed" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koinVersion" }
 
+vault-api = { group = "com.github.MilkBowl", name = "vaultAPI", version = "1.7" }
+
 [plugins]
 run-paper = { id = "xyz.jpenilla.run-paper", version = "2.2.3" }
 resource-factory = { id = "xyz.jpenilla.resource-factory", version = "1.1.1" }

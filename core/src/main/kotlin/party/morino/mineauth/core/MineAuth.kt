@@ -11,6 +11,7 @@ import party.morino.mineauth.core.commands.HelpCommand
 import party.morino.mineauth.core.commands.RegisterCommand
 import party.morino.mineauth.core.commands.ReloadCommand
 import party.morino.mineauth.core.file.load.FileUtils
+import party.morino.mineauth.core.integration.IntegrationInitializer
 import party.morino.mineauth.core.web.WebServer
 import revxrsal.commands.bukkit.BukkitCommandHandler
 import revxrsal.commands.ktx.supportSuspendFunctions
@@ -23,6 +24,7 @@ open class MineAuth: SuspendingJavaPlugin() , MineAuthAPI {
         setupKoin()
         FileUtils.loadFiles()
         FileUtils.settingDatabase()
+        IntegrationInitializer.initialize()
         Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable {
             WebServer.settingServer()
             WebServer.startServer()

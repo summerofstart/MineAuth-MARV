@@ -30,7 +30,12 @@ object OfflinePlayerSerializer : KSerializer<OfflinePlayer> {
     override val descriptor = PrimitiveSerialDescriptor("OfflinePlayer", PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): OfflinePlayer {
-        return Bukkit.getOfflinePlayer(decoder.decodeString().toUUID())
+        val string = decoder.decodeString()
+        return if (string.matches(Regex("([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{12})"))) {
+            Bukkit.getOfflinePlayer(string.toUUID())
+        }else{
+            Bukkit.getOfflinePlayer(string)
+        }
     }
 
     override fun serialize(encoder: Encoder, value: OfflinePlayer) {
