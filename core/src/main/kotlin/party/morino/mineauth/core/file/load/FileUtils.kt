@@ -29,7 +29,7 @@ object FileUtils: KoinComponent {
 
     fun settingDatabase() {
         Database.connect(
-            url = "jdbc:sqlite:${plugin.dataFolder}${File.separator}Moripa-API.db", driver = "org.sqlite.JDBC"
+            url = "jdbc:sqlite:${plugin.dataFolder}${File.separator}MineAuth.db", driver = "org.sqlite.JDBC"
         )
 
         transaction {
