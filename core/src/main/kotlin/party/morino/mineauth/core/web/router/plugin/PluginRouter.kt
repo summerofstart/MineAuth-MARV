@@ -12,7 +12,7 @@ object PluginRouter {
         get {
             call.respondText("Hello, plugin!")
         }
-        get("/availableIntegrators") {
+        get("/availableIntegrations") {
             call.respond(IntegrationInitializer.availableIntegrations.map { it.name })
         }
         if (VaultIntegration.available) {

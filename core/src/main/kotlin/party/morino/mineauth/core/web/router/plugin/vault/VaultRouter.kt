@@ -24,15 +24,16 @@ object VaultRouter : KoinComponent {
                     val uuid = principal!!.payload.getClaim("playerUniqueId").asString()
                     val offlinePlayer = uuid.toUUID().toOfflinePlayer()
                     VaultIntegration.economy.getBalance(offlinePlayer).let {
-                        call.respond(it)
+                        call.respond(mapOf("balance" to it))
                     }
                 }
                 post("/send") {
                     val principal = call.principal<JWTPrincipal>()
                     val uuid = principal!!.payload.getClaim("playerUniqueId").asString()
                     val sender = uuid.toUUID().toOfflinePlayer()
-                    val target = call.receive<RemittanceData>().target
-                    val amount = call.receive<RemittanceData>().amount
+                    val data = call.receive<RemittanceData>()
+                    val target = data.target
+                    val amount = data.amount
 
                     val economy = VaultIntegration.economy
                     if (amount <= 0) {
