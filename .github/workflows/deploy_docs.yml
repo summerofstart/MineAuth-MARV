@@ -22,7 +22,7 @@ jobs:
           pip install mkdocs-static-i18n[material]
           pip install mkdocs-render-swagger-plugin
       - run: git pull
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
