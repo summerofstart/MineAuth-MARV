@@ -51,7 +51,8 @@ object AuthorizeRouter: KoinComponent {
             }
             val clientData: ClientData =
                 json.decodeFromString(clientDataFile.readText()) //TODO make better redirectUri check
-            if (!redirectUri.startsWith(clientData.redirectUri)) {
+            val recordRedirectUri = if(clientData.redirectUri.endsWith("/")) clientData.redirectUri else clientData.redirectUri + "/"
+            if (!redirectUri.startsWith(recordRedirectUri)) {
                 call.respond(HttpStatusCode.BadRequest, "Invalid redirect_uri")
                 return@get
             } // 認証画面を返す
