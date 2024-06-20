@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    `maven-publish`
 }
 
 dependencies {
@@ -10,6 +11,16 @@ dependencies {
 group = project.group
 version = project.version.toString()
 
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = group.toString()
+            artifactId = "mineauth.api"
+            version = version
+            from(components["kotlin"])
+        }
+    }
+}
 kotlin {
     jvmToolchain {
         (this).languageVersion.set(JavaLanguageVersion.of(21))

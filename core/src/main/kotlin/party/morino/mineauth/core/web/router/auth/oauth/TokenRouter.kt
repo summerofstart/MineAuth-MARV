@@ -24,6 +24,7 @@ import java.util.*
 
 object TokenRouter: KoinComponent {
     val plugin: MineAuth by inject()
+    private const val EXPIRES_IN = 300
     fun Route.tokenRouter() {
         post("/token") {
             val formParameters = call.receiveParameters()
@@ -31,9 +32,26 @@ object TokenRouter: KoinComponent {
             if (grantType == "refresh_token") {
                 //refresh_tokenの処理 https://tools.ietf.org/html/rfc6749#section-6
                 val clientId = formParameters["client_id"]
-                if(clientId == null){
-                    //ConfidentialClientDataの場合
-                    //TODO client_secret
+                val clientSecret = formParameters["client_secret"]
+                if (clientId == null) {
+                    call.respond(HttpStatusCode.BadRequest, "Invalid request")
+                    return@post
+                }
+
+                if(clientSecret != null){
+                    val refreshToken = formParameters["refresh_token"]
+                    if (refreshToken == null) {
+                        call.respond(HttpStatusCode.BadRequest, "Invalid request")
+                        return@post
+                    }
+                    val data = ClientData.getClientData(clientId) as ClientData.ConfidentialClientData
+                    if (data.clientSecret != clientSecret) {
+                        call.respond(HttpStatusCode.BadRequest, "Invalid client_secret")
+                        return@post
+                    }
+                    val (token , state) = issueTokenWithRefreshToken(refreshToken)
+                    call.respond(HttpStatusCode.OK, TokenData(token, "Bearer", EXPIRES_IN, state, refreshToken))
+
                 }else{
                     //PublicClientDataの場合
                     val refreshToken = formParameters["refresh_token"]
@@ -48,7 +66,7 @@ object TokenRouter: KoinComponent {
                         return@post
                     }
                     val (token , state) = issueTokenWithRefreshToken(refreshToken)
-                    call.respond(HttpStatusCode.OK, TokenData(token, "Bearer", 3_600, state, refreshToken))
+                    call.respond(HttpStatusCode.OK, TokenData(token, "Bearer", EXPIRES_IN, state, refreshToken))
                 }
             }else if (grantType == "authorization_code") {
                 //authorization_codeの処理 https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.3
@@ -96,7 +114,7 @@ object TokenRouter: KoinComponent {
 
                 call.respond(
                     HttpStatusCode.OK, TokenData(
-                        token, "Bearer", 3_600, data.state, refreshToken
+                        token, "Bearer", EXPIRES_IN, data.state, refreshToken
                     )
                 )
             }else{
@@ -107,8 +125,12 @@ object TokenRouter: KoinComponent {
 
     private fun issueToken(
         data: AuthorizedData, clientId: String?
-    ): String = JWT.create().withIssuer(get<JWTConfigData>().issuer).withAudience(data.clientId).withNotBefore(Date(System.currentTimeMillis())).withExpiresAt(Date(System.currentTimeMillis() + 3_600_000))
-        .withIssuedAt(Date(System.currentTimeMillis())).withJWTId(UUID.randomUUID().toString())
+    ): String = JWT.create().withIssuer(get<JWTConfigData>().issuer)
+        .withAudience(data.clientId)
+        .withNotBefore(Date(System.currentTimeMillis()))
+        .withExpiresAt(Date(System.currentTimeMillis() + EXPIRES_IN * 1_000.toLong()))
+        .withIssuedAt(Date(System.currentTimeMillis()))
+        .withJWTId(UUID.randomUUID().toString())
         .withClaim("client_id", clientId).withClaim("playerUniqueId", data.uniqueId.toString()).withClaim("scope", data.scope).withClaim("state", data.state).withClaim("scope", data.scope)
         .withClaim("token_type", "token").sign(
             Algorithm.RSA256(
@@ -118,8 +140,11 @@ object TokenRouter: KoinComponent {
 
     private fun issueRefreshToken(
         data: AuthorizedData, clientId: String?
-    ): String = JWT.create().withIssuer(get<JWTConfigData>().issuer).withAudience(data.clientId).withNotBefore(Date(System.currentTimeMillis()))
-        .withExpiresAt(Date(System.currentTimeMillis() + (3_600_000.toLong() * 24 * 30))).withIssuedAt(Date(System.currentTimeMillis())).withJWTId(UUID.randomUUID().toString())
+    ): String = JWT.create().withIssuer(get<JWTConfigData>().issuer)
+        .withAudience(data.clientId)
+        .withNotBefore(Date(System.currentTimeMillis()))
+        .withExpiresAt(Date(System.currentTimeMillis() + (3_600_000.toLong() * 24 * 30)))
+        .withIssuedAt(Date(System.currentTimeMillis())).withJWTId(UUID.randomUUID().toString())
         .withClaim("client_id", clientId)
         .withClaim("playerUniqueId", data.uniqueId.toString())
         .withClaim("scope", data.scope)
