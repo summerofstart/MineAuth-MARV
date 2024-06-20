@@ -44,6 +44,7 @@ object OfflinePlayerSerializer : KSerializer<OfflinePlayer> {
 }
 
 val json = Json {
+    ignoreUnknownKeys = true
     encodeDefaults = true
     isLenient = true
     prettyPrint = true
