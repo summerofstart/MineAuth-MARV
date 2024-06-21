@@ -8,7 +8,9 @@ This is the documentation for MineAuth, a Minecraft authentication plugin for Pa
 - Other plugin integration (Current only support **Vault**)
 
 ## License
-This project is licensed under the GPL-3.0 License - see the [LICENSE](https://github.com/morinoparty/MineAuth/blob/master/LICENSE) file for details.
-なお、[8777734](https://github.com/morinoparty/MineAuth/commit/8777734d46d3162511ff1282d89d646e2a79eafb)までのコミットは、CC0ライセンスで公開されており、一切の著作権が放棄されています。
+The core of this project is licensed under the GPL-3.0 License - see the [LICENSE](https://github.com/morinoparty/MineAuth/blob/master/LICENSE) file for details.
+The part of api is licensed under the CC0-1.0 - see the [LICENSE](https://github.com/morinoparty/MineAuth/blob/master/api/LICENSE) file for details.
+In addition, the commits up to [8777734](https://github.com/morinoparty/MineAuth/commit/8777734d46d3162511ff1282d89d646e2a79eafb) are released under the CC0 license and all copyrights are disclaimed.
+
 
 
