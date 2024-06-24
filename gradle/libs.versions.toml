@@ -1,11 +1,11 @@
 [versions]
 paper = "1.21-R0.1-SNAPSHOT"
-mccoroutine = "2.16.0"
+mccoroutine = "2.17.0"
 lamp = "3.2.1"
 koinVersion = "3.5.6"
 coroutine = "1.8.1"
 serialization = "1.7.0"
-ktor = "2.3.11"
+ktor = "2.3.12"
 exposed = "0.51.1"
 password4j = "1.8.2"
 nimbus = "9.40"
