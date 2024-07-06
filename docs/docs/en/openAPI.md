@@ -1,3 +1,3 @@
 # OpenAPI
 
-!!swagger ../assets/documentation.yaml!!
+!!swagger ../swagger/documentation.yml!!
