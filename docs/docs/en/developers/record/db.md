@@ -1,5 +1,13 @@
 # Database record data reference
 
-| UUID        | Password    |
-|-------------|-------------|
-| Player UUID | bcrypt data |
+UserAuthData
+
+| UUID        | Password    | Temporary |
+|-------------|-------------|-----------|
+| Player UUID | bcrypt data | Boolean   |
+
+RevokeTokenData
+
+| TokenId        | Exp data |
+|----------------|----------|
+| Token Id (200) | Date     |
