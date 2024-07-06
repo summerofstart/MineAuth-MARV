@@ -119,7 +119,7 @@ object KeyUtils: KoinComponent {
         jwtConfigFile.parentFile.mkdirs()
         jwtConfigFile.createNewFile()
         val jwtConfigData = JWTConfigData(
-            "https://api.morino.party", "morino.party", "privateKey.pem", randomKeyAlias
+            "https://api.example.com", "example.com", "privateKey.pem", randomKeyAlias
         )
         jwtConfigFile.writeText(json.encodeToString(jwtConfigData))
     }
