@@ -1,4 +1,4 @@
-package party.morino.mineauth.core.web.router.common.data
+package party.morino.mineauth.core.web.components.common
 
 import kotlinx.serialization.Serializable
 import party.morino.mineauth.core.utils.UUIDSerializer

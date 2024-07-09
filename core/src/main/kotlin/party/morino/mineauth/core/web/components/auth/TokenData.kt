@@ -1,4 +1,4 @@
-package party.morino.mineauth.core.web.router.auth.data
+package party.morino.mineauth.core.web.components.auth
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

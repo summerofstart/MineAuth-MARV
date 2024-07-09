@@ -14,8 +14,8 @@ import party.morino.mineauth.core.MineAuth
 import party.morino.mineauth.core.file.data.JWTConfigData
 import party.morino.mineauth.core.file.utils.KeyUtils.getKeys
 import party.morino.mineauth.core.web.router.auth.data.AuthorizedData
-import party.morino.mineauth.core.web.router.auth.data.ClientData
-import party.morino.mineauth.core.web.router.auth.data.TokenData
+import party.morino.mineauth.core.web.components.auth.ClientData
+import party.morino.mineauth.core.web.components.auth.TokenData
 import party.morino.mineauth.core.web.router.auth.oauth.OAuthRouter.authorizedData
 import java.security.MessageDigest
 import java.security.interfaces.RSAPrivateKey

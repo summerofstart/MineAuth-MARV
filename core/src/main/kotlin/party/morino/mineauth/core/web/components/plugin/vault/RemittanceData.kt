@@ -1,4 +1,4 @@
-package party.morino.mineauth.core.web.router.plugin.vault.data
+package party.morino.mineauth.core.web.components.plugin.vault
 
 import kotlinx.serialization.Serializable
 import org.bukkit.OfflinePlayer
