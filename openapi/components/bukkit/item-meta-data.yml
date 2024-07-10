@@ -1,0 +1,11 @@
+ItemMetaData:
+  type: object
+  properties:
+    displayName:
+      $ref: '../kyori/component-data.yml#/ComponentData'
+    enchantment:
+      type: object
+      additionalProperties:
+        type: integer
+    customModelData:
+      type: integer

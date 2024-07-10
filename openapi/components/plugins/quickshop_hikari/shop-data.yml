@@ -1,0 +1,20 @@
+ShopData:
+  type: object
+  properties:
+    shopId:
+      $ref: '../../common/uuid.yml'
+    owner:
+      type: string
+    location:
+      $ref: '../../bukkit/location-data.yml'
+    price:
+      type: number
+      format: double
+    item:
+      $ref: '../../bukkit/item-stack-data.yml'
+  required:
+    - shopId
+    - owner
+    - location
+    - price
+    - item
