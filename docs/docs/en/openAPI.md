@@ -1,3 +1,3 @@
 # OpenAPI
 
-!!swagger ../swagger/documentation.yml!!
+[redoc](/swagger.html)

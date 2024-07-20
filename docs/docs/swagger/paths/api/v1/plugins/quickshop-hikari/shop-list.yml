@@ -1,0 +1,15 @@
+get:
+  summary: Get my shops
+  tags:
+    - Quickshop Hikari
+  security:
+    - oauth2: [ all ]
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '/swagger/components/common/uuid.yml#/UUID'

@@ -1,6 +1,6 @@
 package party.morino.mineauth.core.integration
 
-import party.morino.mineauth.core.integration.quickshop_hikari.QuickshopIntegration
+import party.morino.mineauth.core.integration.quickshop_hikari.QuickShopIntegration
 import party.morino.mineauth.core.integration.vault.VaultIntegration
 
 object IntegrationInitializer {
@@ -10,7 +10,7 @@ object IntegrationInitializer {
 
     fun initialize() {
         integrations.add(VaultIntegration)
-        integrations.add(QuickshopIntegration)
+        integrations.add(QuickShopIntegration)
 
         integrations.forEach {
             it.initialize()
