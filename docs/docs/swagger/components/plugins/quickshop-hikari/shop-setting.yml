@@ -7,5 +7,4 @@ ShopSetting:
     mode:
       $ref: './shop-mode.yml#/ShopMode'
     per-bulk-amount:
-      type: number
-      format: int
+      type: integer

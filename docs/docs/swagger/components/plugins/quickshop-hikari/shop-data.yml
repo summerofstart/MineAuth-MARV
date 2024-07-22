@@ -2,7 +2,8 @@ ShopData:
   type: object
   properties:
     shopId:
-      $ref: '../../common/uuid.yml#/UUID'
+      type: number
+      example: 1
     owner:
       type: string
     location:

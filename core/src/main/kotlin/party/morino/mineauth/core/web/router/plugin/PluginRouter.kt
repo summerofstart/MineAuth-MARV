@@ -6,6 +6,7 @@ import io.ktor.server.routing.*
 import party.morino.mineauth.core.integration.IntegrationInitializer
 import party.morino.mineauth.core.integration.quickshop_hikari.QuickShopIntegration
 import party.morino.mineauth.core.integration.vault.VaultIntegration
+import party.morino.mineauth.core.web.router.plugin.quickshop_hikari.QuickShopRouter.quickShopRouter
 import party.morino.mineauth.core.web.router.plugin.vault.VaultRouter.vaultRouter
 
 object PluginRouter {
@@ -20,7 +21,7 @@ object PluginRouter {
             vaultRouter()
         }
         if (QuickShopIntegration.available) {
-            // quickshopRouter()
+            quickShopRouter()
         }
     }
 }

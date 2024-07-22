@@ -79,8 +79,8 @@ tasks {
             url("https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar")
             //EssestialsX
             url("https://ci.ender.zone/job/EssentialsX/1576/artifact/jars/EssentialsX-2.21.0-dev+93-3a6fdd9.jar")
-            //LuckPerms
-            url("https://ci.lucko.me/view/LuckPerms/job/LuckPerms/lastSuccessfulBuild/artifact/bukkit/loader/build/libs/LuckPerms-Bukkit-5.4.131.jar")
+            //QuickShop
+            url("https://cdn.modrinth.com/data/ijC5dDkD/versions/yr8al7fH/QuickShop-Hikari-6.2.0.6.jar")
         }
         downloadPlugins {
             downloadPlugins.from(plugins)

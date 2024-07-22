@@ -8,8 +8,8 @@ import java.util.*
 
 @Serializable
 data class ShopData(
-    val shopId:@Serializable(with = UUIDSerializer::class) UUID,
-    val owner: String,
+    val shopId: Long,
+    val owner: @Serializable(with = UUIDSerializer::class) UUID,
     val location : LocationData,
     val price: Double,
     val item: ItemStackData,

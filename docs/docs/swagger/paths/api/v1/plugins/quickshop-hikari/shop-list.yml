@@ -12,4 +12,5 @@ get:
           schema:
             type: array
             items:
-              $ref: '/swagger/components/common/uuid.yml#/UUID'
+                type: number
+                format: int64

@@ -5,7 +5,7 @@ import org.bukkit.Bukkit.getServer
 import party.morino.mineauth.core.integration.Integration
 
 
-object VaultIntegration : Integration {
+object VaultIntegration : Integration() {
     override var available: Boolean = false
     override val name: String = "Vault"
     lateinit var economy : Economy
@@ -13,6 +13,7 @@ object VaultIntegration : Integration {
     override fun initialize() {
         val plugin = getServer().pluginManager.getPlugin(name)
         plugin?.let {
+            mineAuth.logger.info("Vault found")
             available = true
         }
         val rsp = getServer().servicesManager.getRegistration(
