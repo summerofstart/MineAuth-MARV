@@ -12,7 +12,7 @@ import party.morino.mineauth.core.integration.vault.VaultIntegration
 import party.morino.mineauth.core.utils.PlayerUtils.toOfflinePlayer
 import party.morino.mineauth.core.utils.PlayerUtils.toUUID
 import party.morino.mineauth.core.web.JwtCompleteCode
-import party.morino.mineauth.core.web.router.plugin.vault.data.RemittanceData
+import party.morino.mineauth.core.web.components.plugin.vault.RemittanceData
 
 object VaultRouter : KoinComponent {
 

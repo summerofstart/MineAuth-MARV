@@ -29,6 +29,7 @@ ktor-server-authJwt = { group = "io.ktor", name = "ktor-server-auth-jwt", versio
 ktor-network-tlsCertificates = { group = "io.ktor", name = "ktor-network-tls-certificates", version.ref = "ktor" }
 ktor-server-velocity = { group = "io.ktor", name = "ktor-server-velocity", version.ref = "ktor" }
 ktor-server-openapi = { group = "io.ktor", name = "ktor-server-openapi", version.ref = "ktor" }
+ktor-server-call-logging = { group = "io.ktor", name = "ktor-server-call-logging", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-java = { group = "io.ktor", name = "ktor-client-java", version.ref = "ktor" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
@@ -45,10 +46,11 @@ exposed-java-time = { group = "org.jetbrains.exposed", name = "exposed-java-time
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koinVersion" }
 
 vault-api = { group = "com.github.MilkBowl", name = "vaultAPI", version = "1.7.1" }
+quickshop-api = { group = "com.ghostchu", name = "quickshop-api", version = "6.2.0.5" }
 
 [plugins]
 run-paper = { id = "xyz.jpenilla.run-paper", version = "2.3.0" }
-resource-factory = { id = "xyz.jpenilla.resource-factory", version = "1.1.1" }
+resource-factory = { id = "xyz.jpenilla.resource-factory", version = "1.1.2" }
 shadow = { id = "com.github.johnrengelman.shadow", version = "8.1.1" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "2.0.0" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version = "2.0.0" }
@@ -60,4 +62,4 @@ securities = ["password4j", "nimbus-jose-jwt", "bcpkix-jdk18on", "bcprov-jdk18on
 coroutines = ["mccoroutine-bukkit-api", "mccoroutine-bukkit-core" , "kotlinx-coroutines-core"]
 exposed = ["exposed-core", "exposed-dao", "exposed-jdbc", "exposed-java-time"]
 ktor-client = ["ktor-client-core", "ktor-client-java", "ktor-client-logging", "ktor-client-contentNegotiation"]
-ktor-server = ["ktor-server-core", "ktor-server-netty", "ktor-server-contentNegotiation", "ktor-serialization-kotlinxJson", "ktor-server-auth", "ktor-server-authJwt", "ktor-network-tlsCertificates", "ktor-server-velocity", "ktor-server-openapi", "logback-classic"]
+ktor-server = ["ktor-server-core", "ktor-server-netty", "ktor-server-contentNegotiation", "ktor-serialization-kotlinxJson", "ktor-server-auth", "ktor-server-authJwt", "ktor-network-tlsCertificates", "ktor-server-velocity", "ktor-server-openapi", "logback-classic","ktor-server-call-logging"]

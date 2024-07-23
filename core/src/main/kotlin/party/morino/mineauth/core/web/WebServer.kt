@@ -9,6 +9,7 @@ import io.ktor.server.auth.jwt.*
 import io.ktor.server.engine.*
 import io.ktor.server.http.content.*
 import io.ktor.server.netty.*
+import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -73,6 +74,7 @@ private fun Application.module() {
     install(ContentNegotiation) {
         json()
     }
+
     install(Velocity) {
         setProperty(RuntimeConstants.RESOURCE_LOADERS, "file")
         setProperty("resource.loader.file.class", FileResourceLoader::class.java.name)

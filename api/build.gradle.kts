@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     `maven-publish`
@@ -30,8 +32,8 @@ kotlin {
 
 tasks {
     compileKotlin {
-        kotlinOptions.jvmTarget = "21"
-        kotlinOptions.javaParameters = true
+        compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
+        compilerOptions.javaParameters = true
     }
 }
 repositories {

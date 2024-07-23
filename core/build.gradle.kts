@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     java
     alias(libs.plugins.kotlin.jvm)
@@ -15,6 +18,7 @@ repositories {
     maven("https://jitpack.io")
     maven("https://plugins.gradle.org/m2/")
     maven("https://repo.incendo.org/content/repositories/snapshots")
+    maven("https://repo.codemc.io/repository/maven-public/")
     maven("https://repo.codemc.io/repository/maven-public/")
 }
 
@@ -42,6 +46,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
     compileOnly(libs.vault.api)
+    compileOnly(libs.quickshop.api)
 }
 
 kotlin {
@@ -53,11 +58,12 @@ kotlin {
 
 tasks {
     compileKotlin {
-        kotlinOptions.jvmTarget = "21"
-        kotlinOptions.javaParameters = true
+        compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
+        compilerOptions.javaParameters = true
+        compilerOptions.languageVersion.set(KotlinVersion.KOTLIN_2_0)
     }
     compileTestKotlin {
-        kotlinOptions.jvmTarget = "21"
+        compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
     }
     build {
         dependsOn("shadowJar")
@@ -73,10 +79,10 @@ tasks {
             url("https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar")
             //EssestialsX
             url("https://ci.ender.zone/job/EssentialsX/1576/artifact/jars/EssentialsX-2.21.0-dev+93-3a6fdd9.jar")
-            //LuckPerms
-            url("https://ci.lucko.me/view/LuckPerms/job/LuckPerms/lastSuccessfulBuild/artifact/bukkit/loader/build/libs/LuckPerms-Bukkit-5.4.131.jar")
+            //QuickShop
+            url("https://cdn.modrinth.com/data/ijC5dDkD/versions/yr8al7fH/QuickShop-Hikari-6.2.0.6.jar")
         }
-        downloadPlugins{
+        downloadPlugins {
             downloadPlugins.from(plugins)
         }
     }
@@ -92,7 +98,7 @@ sourceSets.main {
             main = "$group.mineauth.core.MineAuth"
             apiVersion = "1.20"
             libraries = libs.bundles.coroutines.asString()
-            softDepend = listOf("Vault")
+            softDepend = listOf("Vault", "QuickShop-Hikari")
         }
     }
 }

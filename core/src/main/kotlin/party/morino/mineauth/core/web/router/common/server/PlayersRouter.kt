@@ -4,7 +4,7 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.bukkit.Bukkit
-import party.morino.mineauth.core.web.router.common.data.ProfileData
+import party.morino.mineauth.core.web.components.common.ProfileData
 
 object PlayersRouter {
     fun Route.playersRouter() {
