@@ -9,4 +9,4 @@ get:
       content:
         application/json:
           schema:
-            $ref: '/swagger/components/common/profile-data.yml#/ProfileData'
+            $ref: '../../components/common/profile-data.yml#/ProfileData'

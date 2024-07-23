@@ -2,12 +2,18 @@ get:
   summary: Get shop info
   tags:
     - Quickshop Hikari
-  security:
-    - oauth2: [ all ]
+  parameters:
+    - in: path
+      name: shopId
+      required: true
+      schema:
+        type: number
+        format: int64
+      description: The ID of the shop
   responses:
     '200':
       description: OK
       content:
         application/json:
           schema:
-            $ref: '/swagger/components/plugins/quickshop-hikari/shop-data.yml#/ShopData'
+            $ref: '../../../../../components/plugins/quickshop-hikari/shop-data.yml#/ShopData'

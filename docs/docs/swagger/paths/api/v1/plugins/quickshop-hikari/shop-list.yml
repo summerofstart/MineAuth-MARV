@@ -1,9 +1,14 @@
 get:
-  summary: Get my shops
+  summary: Get player shop list
   tags:
     - Quickshop Hikari
-  security:
-    - oauth2: [ all ]
+  parameters:
+    - in: path
+      name: uuid
+      required: true
+      schema:
+        type: string
+      description: The UUID of the player If "me", get my shop list
   responses:
     '200':
       description: OK

@@ -29,6 +29,7 @@ ktor-server-authJwt = { group = "io.ktor", name = "ktor-server-auth-jwt", versio
 ktor-network-tlsCertificates = { group = "io.ktor", name = "ktor-network-tls-certificates", version.ref = "ktor" }
 ktor-server-velocity = { group = "io.ktor", name = "ktor-server-velocity", version.ref = "ktor" }
 ktor-server-openapi = { group = "io.ktor", name = "ktor-server-openapi", version.ref = "ktor" }
+ktor-server-call-logging = { group = "io.ktor", name = "ktor-server-call-logging", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-java = { group = "io.ktor", name = "ktor-client-java", version.ref = "ktor" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
@@ -61,4 +62,4 @@ securities = ["password4j", "nimbus-jose-jwt", "bcpkix-jdk18on", "bcprov-jdk18on
 coroutines = ["mccoroutine-bukkit-api", "mccoroutine-bukkit-core" , "kotlinx-coroutines-core"]
 exposed = ["exposed-core", "exposed-dao", "exposed-jdbc", "exposed-java-time"]
 ktor-client = ["ktor-client-core", "ktor-client-java", "ktor-client-logging", "ktor-client-contentNegotiation"]
-ktor-server = ["ktor-server-core", "ktor-server-netty", "ktor-server-contentNegotiation", "ktor-serialization-kotlinxJson", "ktor-server-auth", "ktor-server-authJwt", "ktor-network-tlsCertificates", "ktor-server-velocity", "ktor-server-openapi", "logback-classic"]
+ktor-server = ["ktor-server-core", "ktor-server-netty", "ktor-server-contentNegotiation", "ktor-serialization-kotlinxJson", "ktor-server-auth", "ktor-server-authJwt", "ktor-network-tlsCertificates", "ktor-server-velocity", "ktor-server-openapi", "logback-classic","ktor-server-call-logging"]

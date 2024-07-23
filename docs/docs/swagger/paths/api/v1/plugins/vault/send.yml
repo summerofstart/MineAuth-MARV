@@ -9,7 +9,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '/swagger/components/plugins/vault/remittance-data.yml#/RemittanceData'
+          $ref: '../../../../../components/plugins/vault/remittance-data.yml#/RemittanceData'
   responses:
     '200':
       description: OK

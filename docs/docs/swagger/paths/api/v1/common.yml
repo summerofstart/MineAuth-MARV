@@ -15,7 +15,7 @@ get:
                 id:
                   type: object
                   schema:
-                    $ref: '/swagger/components/common/uuid.yml#/UUID'
+                    $ref: '../../../../components/common/uuid.yml#/UUID'
                 name:
                   type: string
                   example: "Notch"

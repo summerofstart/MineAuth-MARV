@@ -44,7 +44,7 @@ paths:
     $ref: './paths/api/v1/plugins/vault/balance.yml'
   /api/v1/plugins/vault/send:
     $ref: './paths/api/v1/plugins/vault/send.yml'
-  /api/v1/plugins/quickshop-hikari/shops:
+  /api/v1/plugins/quickshop-hikari/users/{uuid}/shops:
     $ref: './paths/api/v1/plugins/quickshop-hikari/shop-list.yml'
   /api/v1/plugins/quickshop-hikari/shops/{shopId}:
     $ref: './paths/api/v1/plugins/quickshop-hikari/shop-info.yml'

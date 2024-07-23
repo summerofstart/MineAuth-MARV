@@ -6,20 +6,17 @@ import kotlinx.serialization.Serializable
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
-import org.bukkit.Registry
-import org.bukkit.enchantments.Enchantment
-import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import party.morino.mineauth.core.web.components.kyori.ComponentData
 
 @Serializable
 data class ItemMetaData(
-    val displayName : ComponentData,
-    val enchantment : Map<String, Int>,
-    val customModelData : Int? = null
-){
+    val displayName: ComponentData,
+    val enchantment: Map<String, Int>,
+    val customModelData: Int? = null
+) {
 
-    fun toItemMeta(material : Material): ItemMeta {
+    fun toItemMeta(material: Material): ItemMeta {
         val itemMeta = Bukkit.getItemFactory().getItemMeta(material)
         itemMeta?.let {
             it.displayName(displayName.toComponent())
@@ -35,9 +32,9 @@ data class ItemMetaData(
     companion object {
         fun fromItemMeta(itemMeta: ItemMeta): ItemMetaData {
             return ItemMetaData(
-                enchantment = itemMeta.enchants.map { it.key.key.key to it.value  }.toMap(),
+                enchantment = itemMeta.enchants.map { it.key.key.key to it.value }.toMap(),
                 displayName = ComponentData.fromComponent(itemMeta.displayName() ?: ComponentData("").toComponent()),
-                customModelData = itemMeta.customModelData,
+                customModelData = if (itemMeta.hasCustomModelData()) itemMeta.customModelData else null,
             )
         }
     }
