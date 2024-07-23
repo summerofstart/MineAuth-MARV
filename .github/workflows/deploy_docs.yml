@@ -37,7 +37,4 @@ jobs:
       - name: Copy dokkaHtml to docs
         run: cp -r ./api/build/dokka/html ./docs/docs/dokka
 
-      - name: Copy swagger to docs
-        run: cp -r ./openapi ./docs/docs/swagger
-
       - run: mkdocs gh-deploy --config-file ./docs/mkdocs.yml
