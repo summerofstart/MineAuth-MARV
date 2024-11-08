@@ -9,7 +9,6 @@ import io.ktor.server.auth.jwt.*
 import io.ktor.server.engine.*
 import io.ktor.server.http.content.*
 import io.ktor.server.netty.*
-import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -32,31 +31,29 @@ import party.morino.mineauth.core.web.router.plugin.PluginRouter.pluginRouter
 import java.security.KeyStore
 import java.util.concurrent.TimeUnit
 
-object WebServer: KoinComponent {
+object WebServer : KoinComponent {
     private val plugin: MineAuth by inject()
-    private var originalServer: ApplicationEngine? = null
+    var originalServer: EmbeddedServer<NettyApplicationEngine, NettyApplicationEngine. Configuration>? = null
     fun settingServer() {
         val webServerConfigData: WebServerConfigData = get()
         plugin.logger.info("Setting up web server")
-        val environment = applicationEngineEnvironment {
+        val environment = applicationEnvironment {
+
+
+        }
+        originalServer = embeddedServer(Netty, environment = environment, configure = {
             connector {
                 port = webServerConfigData.port
             }
-            if (webServerConfigData.ssl != null) {
+            if (webServerConfigData.ssl!=null) {
                 val keyStoreFile = plugin.dataFolder.resolve("keystore.jks")
-                val keystore =
-                    KeyStore.getInstance(keyStoreFile, webServerConfigData.ssl.keyStorePassword.toCharArray())
-                sslConnector(keyStore = keystore,
-                             keyAlias = webServerConfigData.ssl.keyAlias,
-                             keyStorePassword = { webServerConfigData.ssl.keyStorePassword.toCharArray() },
-                             privateKeyPassword = { webServerConfigData.ssl.privateKeyPassword.toCharArray() }) {
+                val keystore = KeyStore.getInstance(keyStoreFile, webServerConfigData.ssl.keyStorePassword.toCharArray())
+                sslConnector(keyStore = keystore, keyAlias = webServerConfigData.ssl.keyAlias, keyStorePassword = { webServerConfigData.ssl.keyStorePassword.toCharArray() }, privateKeyPassword = { webServerConfigData.ssl.privateKeyPassword.toCharArray() }) {
                     port = webServerConfigData.ssl.sslPort
                     keyStorePath = keyStoreFile
                 }
             }
-            module(Application::module)
-        }
-        originalServer = embeddedServer(Netty, environment)
+        }, Application::module)
     }
 
     fun startServer() {
@@ -80,9 +77,7 @@ private fun Application.module() {
         setProperty("resource.loader.file.class", FileResourceLoader::class.java.name)
         setProperty("resource.loader.file.path", plugin.dataFolder.resolve("templates").absolutePath)
     }
-    val jwkProvider = JwkProviderBuilder(jwtConfigData.issuer).cached(10, 24, TimeUnit.HOURS).rateLimited(
-        10, 1, TimeUnit.MINUTES
-    ).build()
+    val jwkProvider = JwkProviderBuilder(jwtConfigData.issuer).cached(10, 24, TimeUnit.HOURS).rateLimited(10, 1, TimeUnit.MINUTES).build()
     install(Authentication) {
         jwt(JwtCompleteCode.USER_TOKEN.code) {
             realm = jwtConfigData.realm
@@ -111,14 +106,6 @@ private fun Application.module() {
                 call.respondText("Hello World!")
             }
         }
-        route("/list") {
-            get {
-                val list = this@routing.getRoutes().map { it.asString() }
-                call.respond(
-                    list
-                )
-            }
-        }
         staticFiles("assets", plugin.dataFolder.resolve("assets"))
 
         authRouter()
@@ -134,37 +121,10 @@ private fun Application.module() {
                 val principal = call.principal<JWTPrincipal>()
                 val uuid = principal!!.payload.getClaim("playerUniqueId").asString()
                 val expiresAt = principal.expiresAt?.time?.minus(System.currentTimeMillis())
-                call.respondText(
-                    "Hello, ${
-                        uuid.toUUID().toOfflinePlayer().name
-                    }! Token is expired at $expiresAt ms."
-                )
+                call.respondText("Hello, ${
+                    uuid.toUUID().toOfflinePlayer().name
+                }! Token is expired at $expiresAt ms.")
             }
-        } //        openAPI(path = "openapi", swaggerFile = "openapi/documentation.yaml") {}
-    }
-}
-
-fun Route.getRoutes(): List<Route> {
-    val list = mutableListOf<Route>()
-    val route = this
-    route.children.forEach {
-        list.addAll(it.getRoutes())
-    }
-    list.add(route)
-    return list
-}
-
-fun Route.asString(): String {
-    val route = this
-    val selector = route.selector
-    return when (val parentRoute = route.parent?.toString()) {
-        null -> when (selector) {
-            is TrailingSlashRouteSelector -> "/"
-            else -> "/$selector"
-        }
-        else -> when (selector) {
-            is TrailingSlashRouteSelector -> if (parentRoute.endsWith('/')) parentRoute else "$parentRoute/"
-            else -> if (parentRoute.endsWith('/')) "$parentRoute$selector" else "$parentRoute/${selector}"
         }
     }
 }
