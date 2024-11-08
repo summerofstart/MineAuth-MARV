@@ -1,4 +1,6 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
     java
@@ -16,7 +18,8 @@ buildscript {
     }
 }
 
-subprojects {
+allprojects {
+
     apply(plugin = "java")
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "org.jetbrains.kotlin.jvm")
@@ -30,11 +33,25 @@ subprojects {
         maven("https://plugins.gradle.org/m2/")
         maven("https://repo.incendo.org/content/repositories/snapshots")
         maven("https://repo.codemc.io/repository/maven-public/")
+        maven("https://repo.codemc.io/repository/maven-public/")
     }
 
     dependencies {
         compileOnly(kotlin("stdlib"))
         compileOnly("org.jetbrains:annotations:24.1.0")
+    }
+
+    kotlin {
+        jvmToolchain {
+            (this).languageVersion.set(JavaLanguageVersion.of(21))
+        }
+        jvmToolchain(21)
+    }
+
+    tasks.register("hello") {
+        doLast {
+            println("I'm ${this.project.name}")
+        }
     }
 
     tasks {
@@ -46,7 +63,21 @@ subprojects {
                 exceptionFormat = TestExceptionFormat.FULL
             }
         }
+        compileKotlin {
+            compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
+            compilerOptions.javaParameters = true
+            compilerOptions.languageVersion.set(KotlinVersion.KOTLIN_2_0)
+        }
+        compileTestKotlin {
+            compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
+        }
+
+        withType<JavaCompile>().configureEach {
+            options.encoding = "UTF-8"
+        }
     }
+
+
 }
 
 dependencies {

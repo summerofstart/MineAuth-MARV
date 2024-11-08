@@ -48,6 +48,8 @@ jobs:
           game-versions: |
             1.20.6
           game-version-filter: releases
+          modrinth-dependencies: |
+            ijC5dDkD(optional)
           java: |
             21
 

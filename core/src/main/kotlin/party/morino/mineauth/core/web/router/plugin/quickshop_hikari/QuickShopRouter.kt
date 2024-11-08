@@ -39,6 +39,7 @@ object QuickShopRouter {
                     }
                     call.respond(data)
                 }
+
                 route("/shops/{shopId}/setting") {
                     get {
                         val shopId = call.parameters["shopId"]?.toLongOrNull()

@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+
 rootProject.name = "MineAuth"
 
 pluginManagement {
@@ -11,5 +13,12 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
+buildCache {
+    local {
+        isEnabled = true
+        directory = file("${rootDir}/.gradle/build-cache")
+    }
+}
 include("core")
 include("api")
+include("addons:quickshop-hikari")

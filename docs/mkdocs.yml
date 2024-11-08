@@ -1,4 +1,4 @@
-site_name: Moripa-API Docs
+site_name: MineAuth Docs
 theme:
   name: material
   language: ja
@@ -40,9 +40,6 @@ plugins:
           default: true
           name: English
           build: true
-        - locale: ja
-          name: 日本語
-          build: true
-repo_url: https://github.com/morinoparty/Moripa-API
-repo_name: Moripa-API
+repo_url: https://github.com/morinoparty/MineAuth
+repo_name: MineAuth
 copyright: No Rights Reserved.

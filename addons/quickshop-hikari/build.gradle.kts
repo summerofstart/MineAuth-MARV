@@ -9,6 +9,7 @@ plugins {
 
 group = "party.morino"
 version = project.version.toString()
+val addonName = "quickshop-hikari-addon"
 
 dependencies {
     implementation(project(":api"))
@@ -20,21 +21,13 @@ dependencies {
 
     implementation(libs.bundles.coroutines)
 
-    implementation(libs.bundles.ktor.server)
-    implementation(libs.bundles.ktor.client)
-
-    implementation(libs.bundles.securities)
-
     implementation(libs.bundles.exposed)
 
     implementation(libs.koin.core)
     implementation(kotlin("stdlib-jdk8"))
 
-    compileOnly(libs.vault.api)
     compileOnly(libs.quickshop.api)
 }
-
-
 
 tasks {
     build {
@@ -42,7 +35,7 @@ tasks {
     }
     shadowJar
     runServer {
-        minecraftVersion("1.20.6")
+        minecraftVersion("1.21")
         val plugins = runPaper.downloadPluginsSpec {
             //Vault
             url("https://github.com/MilkBowl/Vault/releases/download/1.7.3/Vault.jar")
@@ -61,13 +54,13 @@ tasks {
 sourceSets.main {
     resourceFactory {
         bukkitPluginYaml {
-            name = rootProject.name
+            name = rootProject.name + "-" + addonName // "mineauth-api-quickshop-hikari-addon"
             version = project.version.toString()
             website = "https://github.com/morinoparty/Moripa-API"
-            main = "$group.mineauth.core.MineAuth"
+            main = "$group.mineauth.addons.QuickShopHikariAddon"
             apiVersion = "1.20"
             libraries = libs.bundles.coroutines.asString()
-            softDepend = listOf("Vault", "QuickShop-Hikari")
+            softDepend = listOf("Vault", "QuickShop-Hikari", "MineAuth")
         }
     }
 }
@@ -82,4 +75,3 @@ fun Provider<ExternalModuleDependencyBundle>.asString(): List<String> {
         "${dependency.group}:${dependency.name}:${dependency.version}"
     }
 }
-
