@@ -5,17 +5,17 @@ import kotlinx.coroutines.Dispatchers
 import org.apache.commons.lang3.RandomStringUtils
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import org.incendo.cloud.annotations.Command
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.update
 import party.morino.mineauth.core.database.UserAuthData
-import revxrsal.commands.annotation.Command
-import revxrsal.commands.annotation.Subcommand
 
-@Command("mineauth", "ma", "mauth")
+@Command("mineauth|ma|mauth")
 class RegisterCommand {
-    @Subcommand("register")
+
+    @Command("register")
     suspend fun register(sender: CommandSender) {
         if (sender !is Player) {
             sender.sendMessage("You must be a player to use this command")
@@ -43,7 +43,7 @@ class RegisterCommand {
         }
     }
 
-    @Subcommand("change")
+    @Command("change")
     suspend fun change(sender: CommandSender) {
         if (sender !is Player) {
             sender.sendMessage("You must be a player to use this command")

@@ -2,7 +2,6 @@ package party.morino.mineauth.core.web.router.auth.oauth
 
 import com.password4j.Password
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -20,8 +19,8 @@ import party.morino.mineauth.core.database.UserAuthData
 import party.morino.mineauth.core.database.UserAuthData.uuid
 import party.morino.mineauth.core.file.data.OAuthConfigData
 import party.morino.mineauth.core.utils.json
-import party.morino.mineauth.core.web.router.auth.data.AuthorizedData
 import party.morino.mineauth.core.web.components.auth.ClientData
+import party.morino.mineauth.core.web.router.auth.data.AuthorizedData
 import party.morino.mineauth.core.web.router.auth.oauth.OAuthRouter.authorizedData
 
 object AuthorizeRouter: KoinComponent {

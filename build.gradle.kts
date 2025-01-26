@@ -26,13 +26,11 @@ allprojects {
 
     repositories {
         mavenCentral()
-        maven("https://papermc.io/repo/repository/maven-public/")
+        maven("https://repo.papermc.io/repository/maven-public/")
         maven("https://oss.sonatype.org/content/groups/public/")
         maven("https://oss.sonatype.org/content/repositories/snapshots/")
         maven("https://jitpack.io")
         maven("https://plugins.gradle.org/m2/")
-        maven("https://repo.incendo.org/content/repositories/snapshots")
-        maven("https://repo.codemc.io/repository/maven-public/")
         maven("https://repo.codemc.io/repository/maven-public/")
     }
 

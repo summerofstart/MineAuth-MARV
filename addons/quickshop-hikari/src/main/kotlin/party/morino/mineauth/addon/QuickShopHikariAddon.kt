@@ -13,14 +13,14 @@ class QuickShopHikariAddon : JavaPlugin() {
         mineAuthAPI = server.servicesManager.getRegistration(MineAuthAPI::class.java)?.provider
             ?: throw IllegalStateException("MineAuthAPI not found")
 
-        setupMineauth()
+        setupMineAuth()
     }
 
     override fun onDisable() {
         logger.info("QuickShop Hikari Addon disabled")
     }
 
-    private fun setupMineauth() {
+    private fun setupMineAuth() {
         val handler = mineAuthAPI.createHandler(this)
 
         handler.register(

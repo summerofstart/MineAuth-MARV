@@ -1,7 +1,6 @@
 package party.morino.mineauth.core.web.router.plugin.vault
 
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.request.*
