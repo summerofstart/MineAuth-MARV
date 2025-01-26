@@ -14,7 +14,8 @@ object QuickShopIntegration : Integration() {
         plugin?.let {
             mineAuth.logger.info("QuickShop found")
             available = true
+            quickshop = QuickShopAPI.getInstance()
         }
-        quickshop = QuickShopAPI.getInstance()
+
     }
 }
