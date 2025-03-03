@@ -10,7 +10,7 @@ ktor = "3.1.1"
 exposed = "0.59.0"
 password4j = "1.8.2"
 nimbus = "10.0.2"
-logback = "1.5.16"
+logback = "1.5.17"
 bouncycastle = "1.80"
 
 [libraries]
