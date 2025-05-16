@@ -1,6 +1,0 @@
-ShopMode:
-  type: string
-  enum:
-    - BUY
-    - SELL
-  example: BUY

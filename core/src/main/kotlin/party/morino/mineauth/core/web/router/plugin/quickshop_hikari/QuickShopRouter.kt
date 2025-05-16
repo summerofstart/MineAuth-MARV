@@ -16,8 +16,8 @@ import party.morino.mineauth.core.utils.PlayerUtils.toOfflinePlayer
 import party.morino.mineauth.core.utils.PlayerUtils.toUUID
 import party.morino.mineauth.core.utils.coroutines.minecraft
 import party.morino.mineauth.core.web.JwtCompleteCode
-import party.morino.mineauth.core.web.components.bukkit.ItemStackData
-import party.morino.mineauth.core.web.components.bukkit.LocationData
+import party.morino.mineauth.api.model.bukkit.ItemStackData
+import party.morino.mineauth.api.model.bukkit.LocationData
 import party.morino.mineauth.core.web.components.plugin.quickshop_hikari.ShopData
 import party.morino.mineauth.core.web.components.plugin.quickshop_hikari.ShopMode
 import party.morino.mineauth.core.web.components.plugin.quickshop_hikari.ShopSetting

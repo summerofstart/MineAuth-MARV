@@ -1,0 +1,21 @@
+HttpRequest:
+  description: HTTPリクエストを表すデータ構造
+  type: object
+  properties:
+    parameters:
+      type: object
+      description: URLパラメータ
+      additionalProperties:
+        type: string
+    body:
+      type: string
+      description: リクエストボディ
+      nullable: true
+    headers:
+      type: object
+      description: リクエストヘッダー
+      additionalProperties:
+        type: string
+  required:
+    - parameters
+    - headers 

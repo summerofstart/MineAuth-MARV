@@ -1,7 +1,9 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.net.URL
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
     `maven-publish`
 }
 
@@ -23,11 +25,20 @@ publishing {
         }
     }
 }
+
+tasks.dokkaHtml {
+    outputDirectory.set(file("${project.rootDir}/docs/static/dokka"))
+}
+
 kotlin {
     jvmToolchain {
         (this).languageVersion.set(JavaLanguageVersion.of(21))
     }
     jvmToolchain(21)
+}
+
+dependencies{
+    implementation(libs.kotlinx.serialization.json)
 }
 
 tasks {

@@ -6,7 +6,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import party.morino.mineauth.core.utils.PlayerUtils.toOfflinePlayer
 import party.morino.mineauth.core.utils.PlayerUtils.toUUID
-import party.morino.mineauth.core.web.components.common.ProfileData
+import party.morino.mineauth.api.model.common.ProfileData
 
 object ProfileRouter {
     fun Route.profileRouter() {

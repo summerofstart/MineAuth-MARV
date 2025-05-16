@@ -1,0 +1,9 @@
+HttpMethod:
+  description: HTTPメソッドを表す列挙型
+  type: string
+  enum:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    - PATCH 
