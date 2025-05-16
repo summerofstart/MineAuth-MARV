@@ -38,17 +38,20 @@ jobs:
           run_install: false
 
       - name: Install
+        working-directory: docs
         run: |
           pnpm install
 
       - name: Build
+        working-directory: docs
         run: |
           pnpm run build
 
       - name: Upload Build Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./docs/build
+          retention-days: 5
 
   deploy:
     name: Deploy to GitHub Pages
