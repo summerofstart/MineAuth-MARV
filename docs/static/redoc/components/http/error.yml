@@ -1,0 +1,29 @@
+HttpError:
+  description: HTTPエラーを表すデータ構造
+  type: object
+  properties:
+    status:
+      $ref: '#/components/schemas/HttpStatus'
+    message:
+      type: string
+      description: エラーメッセージ
+    details:
+      type: object
+      description: エラーの詳細情報
+      additionalProperties:
+        type: object
+  required:
+    - status
+    - message
+
+HttpStatus:
+  description: HTTPステータスを表す列挙型
+  type: string
+  enum:
+    - OK
+    - CREATED
+    - BAD_REQUEST
+    - UNAUTHORIZED
+    - FORBIDDEN
+    - NOT_FOUND
+    - INTERNAL_SERVER_ERROR 

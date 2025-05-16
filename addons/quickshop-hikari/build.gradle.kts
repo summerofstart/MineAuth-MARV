@@ -57,7 +57,7 @@ sourceSets.main {
             name = rootProject.name + "-" + addonName // "mineauth-api-quickshop-hikari-addon"
             version = project.version.toString()
             website = "https://github.com/morinoparty/Moripa-API"
-            main = "$group.mineauth.addons.QuickShopHikariAddon"
+            main = "$group.mineauth.addons.quickshop.QuickShopHikariAddon"
             apiVersion = "1.20"
             libraries = libs.bundles.coroutines.asString()
             softDepend = listOf("Vault", "QuickShop-Hikari", "MineAuth")

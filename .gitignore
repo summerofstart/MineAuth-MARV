@@ -5,6 +5,7 @@ bin/
 .vscode
 
 docs/site/**
+docs/static/dokka/**
 
 *.iml
 *.ipr

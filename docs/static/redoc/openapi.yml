@@ -1,0 +1,207 @@
+openapi: 3.0.2
+info:
+  title: MineAuth
+  description: |
+    This is the MineAuth API documentation.<br>
+    This makes user access to self information on minecraft.
+  license:
+    name: CC0-1.0
+    url: https://creativecommons.org/publicdomain/zero/1.0/
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+  - url: https://api.example.com
+    description: Production server
+paths:
+  /oauth2/userinfo:
+    get:
+      summary: Get user information
+      tags:
+        - oauth2
+      security:
+        - oauth2:
+            - profile
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileData'
+  /oauth2/revoke:
+    post:
+      responses:
+        '200':
+          description: OK
+      summary: Revoke access token
+      tags:
+        - oauth2
+      parameters:
+        - name: token
+          in: query
+          required: true
+          schema:
+            type: string
+  /oauth2/introspect:
+    post:
+      responses:
+        '200':
+          description: OK
+      summary: Introspect access token
+      tags:
+        - oauth2
+      parameters:
+        - name: token
+          in: query
+          required: true
+          schema:
+            type: string
+  /api/v1/commons/server/players:
+    get:
+      summary: Get online players
+      tags:
+        - Server
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: object
+                      schema:
+                        $ref: ../../../../components/common/uuid.yml#/UUID
+                    name:
+                      type: string
+                      example: Notch
+                      description: The player name
+  /api/v1/plugins/availableIntegrations:
+    get:
+      summary: Get available integrators
+      tags:
+        - Plugins
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                example:
+                  - Vault
+                  - LuckPerms
+                items:
+                  type: string
+  /api/v1/plugins/vault/balance/me:
+    get:
+      summary: Get my balance
+      tags:
+        - Vault
+      security:
+        - oauth2:
+            - all
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  balance:
+                    type: number
+                    example: 1000
+  /api/v1/plugins/vault/send:
+    post:
+      summary: Send money
+      tags:
+        - Vault
+      security:
+        - oauth2:
+            - all
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemittanceData'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Successfully sent 250 to Notch. Your balance is 750"
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Not enough money
+  /api/v1/plugins/quickshop-hikari/users/{uuid}/shops:
+    get:
+      summary: Get player shop list
+      tags:
+        - Quickshop Hikari
+      parameters:
+        - in: path
+          name: uuid
+          required: true
+          schema:
+            type: string
+          description: The UUID of the player If "me", get my shop list
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: number
+                  format: int64
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth2/authorize
+          tokenUrl: /oauth2/token
+          refreshUrl: /oauth2/token
+          scopes:
+            openid: Grants read access for OpenID Connect
+            profile: Grants read access for my profile
+            all: Grants read access for my resources
+  schemas:
+    UUID:
+      type: string
+      format: uuid
+      example: 123e4567-e89b-12d3-a456-426614174000
+      description: Player unique identifier
+    ProfileData:
+      type: object
+      properties:
+        username:
+          type: string
+          example: Notch
+          description: The name of the profile
+        id:
+          $ref: '#/components/schemas/UUID'
+    RemittanceData:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/UUID'
+        amount:
+          type: number
+          format: double
+      required:
+        - target
+        - amount

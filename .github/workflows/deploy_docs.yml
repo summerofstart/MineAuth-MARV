@@ -14,14 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: 3.9
-      - run: |
-          pip install mkdocs-material
-          pip install mkdocs-static-i18n[material]
-          pip install mkdocs-render-swagger-plugin
-      - run: git pull
+
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
@@ -34,7 +27,45 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew :api:dokkaHtml
 
-      - name: Copy dokkaHtml to docs
-        run: cp -r ./api/build/dokka/html ./docs/docs/dokka
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
-      - run: mkdocs gh-deploy --config-file ./docs/mkdocs.yml
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 9
+          run_install: false
+
+      - name: Install
+        run: |
+          pnpm install
+
+      - name: Build
+        run: |
+          pnpm run build
+
+      - name: Upload Build Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs/build
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
