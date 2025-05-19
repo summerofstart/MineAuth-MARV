@@ -36,4 +36,9 @@ tasks:
     cmds:
       - ./gradlew clean dokkaGenerate
     silent: true
+  typespec:
+    dir: typespec
+    cmds:
+      - tsp compile .
+    silent: true
 

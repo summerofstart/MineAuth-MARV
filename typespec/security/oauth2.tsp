@@ -46,28 +46,3 @@ model AllAuth {
   scheme: OAuth2Schema;
   scopes: ["all"];
 }
-
-// OpenAPI3セキュリティスキーム定義
-@securitySchemes
-namespace SecuritySchemes {
-  /**
-   * OAuth2認証
-   */
-  @doc("OAuth2認証")
-  @oasSecurity("oauth2")
-  model OAuth2 {
-    type: "oauth2";
-    flows: {
-      authorizationCode: {
-        authorizationUrl: "/oauth2/authorize";
-        tokenUrl: "/oauth2/token";
-        refreshUrl: "/oauth2/token";
-        scopes: {
-          openid: "Grants read access for OpenID Connect";
-          profile: "Grants read access for my profile";
-          all: "Grants read access for my resources";
-        };
-      };
-    };
-  }
-}
