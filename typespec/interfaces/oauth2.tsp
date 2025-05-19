@@ -7,7 +7,6 @@ using TypeSpec.Http;
 using TypeSpec.OpenAPI;
 using MineAuth.Models;
 using MineAuth.Security;
-using MineAuth.Security.SecuritySchemes;
 
 namespace MineAuth.Interfaces;
 
@@ -24,7 +23,7 @@ interface OAuth2 {
    */
   @route("/userinfo")
   @get
-  @useAuth(OAuth2)
+  @useAuth(ProfileAuth)
   getUserInfo(): ProfileData;
 
   /**

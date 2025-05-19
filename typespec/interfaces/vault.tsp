@@ -7,7 +7,6 @@ using TypeSpec.Http;
 using TypeSpec.OpenAPI;
 using MineAuth.Models.Plugins;
 using MineAuth.Security;
-using MineAuth.Security.SecuritySchemes;
 
 namespace MineAuth.Interfaces.PluginIntegrations;
 
@@ -24,7 +23,7 @@ interface Vault {
    */
   @route("/balance/me")
   @get
-  @useAuth(OAuth2)
+  @useAuth(AllAuth)
   getBalance(): BalanceResponse;
 
   /**
@@ -33,6 +32,6 @@ interface Vault {
    */
   @route("/send")
   @post
-  @useAuth(OAuth2)
+  @useAuth(AllAuth)
   sendMoney(@body body: RemittanceData): SendMoneyResponse | ErrorResponse;
 } 
