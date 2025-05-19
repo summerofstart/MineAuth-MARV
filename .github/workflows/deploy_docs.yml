@@ -2,7 +2,9 @@ name: deploy docs
 
 on:
   workflow_dispatch:
-
+  push:
+    paths:
+      - "docs"
 permissions:
   contents: write
 
@@ -42,7 +44,8 @@ jobs:
       - name: Generate OpenAPI
         working-directory: typespec
         run: |
-          typespec compile .
+          pnpm i -g @typespec/compiler
+          tsp compile .
           cat ../docs/static/redoc/openapi-mineauth.yaml
 
       - name: Build
