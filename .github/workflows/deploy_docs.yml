@@ -1,10 +1,7 @@
 name: deploy docs
 
 on:
-  push:
-    branches:
-      - master
-      - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -25,7 +22,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew :api:dokkaHtml
+        run: ./gradlew dokkaGenerate
 
       - uses: actions/setup-node@v4
         with:
@@ -34,13 +31,19 @@ jobs:
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         with:
-          version: 9
+          version: 10
           run_install: false
 
       - name: Install
         working-directory: docs
         run: |
           pnpm install
+
+      - name: Generate OpenAPI
+        working-directory: typespec
+        run: |
+          typespec compile .
+          cat ../docs/static/redoc/openapi-mineauth.yaml
 
       - name: Build
         working-directory: docs
@@ -51,7 +54,6 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./docs/build
-          retention-days: 5
 
   deploy:
     name: Deploy to GitHub Pages

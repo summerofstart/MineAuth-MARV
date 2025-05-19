@@ -19,15 +19,11 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = group.toString()
-            artifactId = "mineauth.api"
+            artifactId = "mineauth-api"
             version = version
             from(components["kotlin"])
         }
     }
-}
-
-tasks.dokkaHtml {
-    outputDirectory.set(file("${project.rootDir}/docs/static/dokka"))
 }
 
 kotlin {
@@ -50,3 +46,4 @@ tasks {
 repositories {
     mavenCentral()
 }
+

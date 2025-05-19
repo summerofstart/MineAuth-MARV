@@ -3,6 +3,7 @@ package party.morino.mineauth.api.model.bukkit
 import org.bukkit.Bukkit
 import org.bukkit.inventory.ItemStack
 import party.morino.mineauth.api.model.kyori.ComponentData
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class ItemStackData(

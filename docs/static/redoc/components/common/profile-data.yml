@@ -1,9 +1,0 @@
-ProfileData:
-  type: object
-  properties:
-    username:
-      type: string
-      example: 'Notch'
-      description: The name of the profile
-    id:
-      $ref: './uuid.yml#/UUID'
