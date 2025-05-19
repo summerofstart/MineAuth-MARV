@@ -29,17 +29,9 @@ const config: Config = {
     // may want to replace "en" with "zh-Hans".
     i18n: {
         defaultLocale: "en",
-        locales: ["en", "ja"],
-        localeConfigs: {
-            en: {
-                label: "English",
-            },
-            ja: {
-                label: "日本語",
-            },
-        },
+        locales: ["en"],
     },
-
+    themes: ["@docusaurus/theme-mermaid"],
     presets: [
         [
             "classic",
@@ -65,7 +57,7 @@ const config: Config = {
             {
                 // Options here
                 indexDocs: true,
-                language: ["en", "ja"],
+                language: ["en"],
                 docsRouteBasePath: "/",
             },
         ],
@@ -156,6 +148,8 @@ const config: Config = {
                 "diff",
                 "toml",
                 "yaml",
+                "json",
+                "json5",
                 "kotlin",
             ],
             theme: prismThemes.github,

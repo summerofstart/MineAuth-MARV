@@ -6,11 +6,12 @@ plugins {
     java
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.dokka)
+    alias(libs.plugins.ktlint)
+    id("io.gitlab.arturbosch.detekt") version "1.23.8"
 }
 
-val projectVersion: String by project
+val version: String by project
 group = "party.morino"
-version = projectVersion
 
 buildscript {
     repositories {
@@ -46,13 +47,12 @@ allprojects {
         jvmToolchain(21)
     }
 
-    tasks.register("hello") {
-        doLast {
-            println("I'm ${this.project.name}")
-        }
-    }
-
     tasks {
+        register("hello") {
+            doLast {
+                println("I'm ${this.project.name}")
+            }
+        }
         test {
             useJUnitPlatform()
             testLogging {
@@ -74,8 +74,6 @@ allprojects {
             options.encoding = "UTF-8"
         }
     }
-
-
 }
 
 dependencies {
@@ -86,4 +84,29 @@ repositories {
 }
 kotlin {
     jvmToolchain(21)
+}
+
+dependencies {
+    dokka(project(":core"))
+    dokka(project(":api"))
+}
+
+dokka {
+    pluginsConfiguration.html {
+        footerMessage.set("No right reserved. This docs under CC0 1.0.")
+    }
+    dokkaPublications.html {
+        outputDirectory.set(file("${project.rootDir}/docs/static/dokka"))
+    }
+}
+detekt {
+    toolVersion = "1.23.8"
+    source.setFrom("api/src/main/java", "api/src/main/kotlin", "core/src/main/java", "core/src/main/kotlin")
+    parallel = true
+    buildUponDefaultConfig = true
+    allRules = true
+    baseline = file("./detekt-baseline.xml")
+    disableDefaultRuleSets = false
+    debug = false
+    ignoreFailures = true
 }

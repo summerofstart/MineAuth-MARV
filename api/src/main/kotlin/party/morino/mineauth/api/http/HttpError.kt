@@ -8,6 +8,6 @@ package party.morino.mineauth.api.http
  */
 class HttpError(
     val status: HttpStatus,
-    val message: String,
+    override val message: String,
     val details: Map<String, Any> = mapOf()
 ) : RuntimeException(message) 
