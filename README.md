@@ -4,5 +4,5 @@ MineAuth-marv は、MARV サーバー用に改造された MineAuth プラグイ
 
 ## 特徴
 
-- MARV サーバーとの互換性を強化
+
 - 元の MineAuth プラグインをベースにカスタマイズ
